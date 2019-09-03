@@ -496,7 +496,10 @@ func Main() error {
 	rand.Seed(time.Now().Unix())
 	setupRootCommand(Root)
 	AddBackendFlags()
-	if err := Root.Execute(); err != nil {
+	err := Root.Execute()
+	if err != nil {
 		return err
+	} else {
+		return nil
 	}
 }
