@@ -141,7 +141,7 @@ var helpBackend = &cobra.Command{
 func runRoot(cmd *cobra.Command, args []string) {
 	if version {
 		ShowVersion()
-		resolveExitCode(nil)
+		//resolveExitCode(nil)
 	} else {
 		_ = cmd.Usage()
 		if len(args) > 0 {
