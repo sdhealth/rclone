@@ -492,11 +492,11 @@ func AddBackendFlags() {
 }
 
 // Main runs rclone interpreting flags and commands out of os.Args
-func Main() {
+func Main() error {
 	rand.Seed(time.Now().Unix())
 	setupRootCommand(Root)
 	AddBackendFlags()
 	if err := Root.Execute(); err != nil {
-		log.Panicf("Fatal error: %v", err)
+		return err
 	}
 }
