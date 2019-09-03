@@ -73,7 +73,7 @@ func (r *run) mountFs(t *testing.T, f fs.Fs) {
 				_, err := os.Stat(r.mntDir)
 				return err != nil
 			}) {
-				t.Fatalf("mountpoint %q didn't disappear after unmount - continuing anyway", r.mntDir)
+				t.Panicf("mountpoint %q didn't disappear after unmount - continuing anyway", r.mntDir)
 			}
 			return nil
 		}

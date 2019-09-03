@@ -1181,7 +1181,7 @@ func Run(t *testing.T, opt *Opt) {
 					return
 				}
 				if precision > time.Second || precision < 0 {
-					t.Fatalf("Precision out of range %v", precision)
+					t.Panicf("Precision out of range %v", precision)
 				}
 				// FIXME check expected precision
 			})

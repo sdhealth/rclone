@@ -194,12 +194,12 @@ func (r *Run) trial() {
 	logName := path.Join(r.logDir, r.trialName)
 	out, err := os.Create(logName)
 	if err != nil {
-		log.Fatalf("Couldn't create log file: %v", err)
+		log.Panicf("Couldn't create log file: %v", err)
 	}
 	defer func() {
 		err := out.Close()
 		if err != nil {
-			log.Fatalf("Failed to close log file: %v", err)
+			log.Panicf("Failed to close log file: %v", err)
 		}
 	}()
 	_, _ = fmt.Fprintln(out, msg)
@@ -280,10 +280,10 @@ func (r *Run) MakeTestBinary() {
 	cmd.Dir = r.Path
 	err := cmd.Run()
 	if err != nil {
-		log.Fatalf("Failed to make test binary: %v", err)
+		log.Panicf("Failed to make test binary: %v", err)
 	}
 	if _, err := os.Stat(binary); err != nil {
-		log.Fatalf("Couldn't find test binary %q", binary)
+		log.Panicf("Couldn't find test binary %q", binary)
 	}
 }
 

@@ -75,7 +75,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("box", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: []fs.Option{{

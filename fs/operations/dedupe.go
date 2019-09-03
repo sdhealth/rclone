@@ -22,7 +22,7 @@ import (
 func dedupeRename(ctx context.Context, f fs.Fs, remote string, objs []fs.Object) {
 	doMove := f.Features().Move
 	if doMove == nil {
-		log.Fatalf("Fs %v doesn't support Move", f)
+		log.Panicf("Fs %v doesn't support Move", f)
 	}
 	ext := path.Ext(remote)
 	base := remote[:len(remote)-len(ext)]

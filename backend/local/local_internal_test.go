@@ -47,7 +47,7 @@ func TestUpdatingCheck(t *testing.T) {
 
 	fd, err := file.Open(path.Join(r.LocalName, filePath))
 	if err != nil {
-		t.Fatalf("failed opening file %q: %v", filePath, err)
+		t.Panicf("failed opening file %q: %v", filePath, err)
 	}
 	defer func() {
 		require.NoError(t, fd.Close())

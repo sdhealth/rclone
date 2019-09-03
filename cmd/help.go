@@ -101,7 +101,7 @@ var helpFlags = &cobra.Command{
 		if len(args) > 0 {
 			re, err := regexp.Compile(args[0])
 			if err != nil {
-				log.Fatalf("Failed to compile flags regexp: %v", err)
+				log.Panicf("Failed to compile flags regexp: %v", err)
 			}
 			flagsRe = re
 		}

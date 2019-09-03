@@ -59,7 +59,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("hubic", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: append([]fs.Option{{

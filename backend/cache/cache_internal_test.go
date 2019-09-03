@@ -948,7 +948,7 @@ func newRun() *run {
 		if runtime.GOOS != "windows" {
 			r.mntDir, err = ioutil.TempDir("", "rclonecache-mount")
 			if err != nil {
-				log.Fatalf("Failed to create mount dir: %v", err)
+				log.Panicf("Failed to create mount dir: %v", err)
 				return nil
 			}
 		} else {
@@ -973,7 +973,7 @@ func newRun() *run {
 	if uploadDir == "" {
 		r.tmpUploadDir, err = ioutil.TempDir("", "rclonecache-tmp")
 		if err != nil {
-			log.Fatalf("Failed to create temp dir: %v", err)
+			log.Panicf("Failed to create temp dir: %v", err)
 		}
 	} else {
 		r.tmpUploadDir = uploadDir
@@ -990,7 +990,7 @@ func (r *run) encryptRemoteIfNeeded(t *testing.T, remote string) string {
 
 	enc, ok := decryptedToEncryptedRemotes[remote]
 	if !ok {
-		t.Fatalf("Failed to find decrypted -> encrypted mapping for '%v'", remote)
+		t.Panicf("Failed to find decrypted -> encrypted mapping for '%v'", remote)
 		return remote
 	}
 	return enc
@@ -1586,7 +1586,7 @@ func (r *run) completeBackgroundUpload(t *testing.T, remote string, waitCh chan 
 	case err = <-waitCh:
 		// continue
 	case <-time.After(maxDuration):
-		t.Fatalf("Timed out waiting to complete the background upload %v", remote)
+		t.Panicf("Timed out waiting to complete the background upload %v", remote)
 		return
 	}
 	require.NoError(t, err)
@@ -1619,7 +1619,7 @@ func (r *run) completeAllBackgroundUploads(t *testing.T, f fs.Fs, lastRemote str
 				return
 			}
 		case <-time.After(maxDuration):
-			t.Fatalf("Timed out waiting to complete the background upload %v", lastRemote)
+			t.Panicf("Timed out waiting to complete the background upload %v", lastRemote)
 			return
 		}
 	}

@@ -46,7 +46,7 @@ func TestListDirSorted(t *testing.T) {
 		case fs.Directory:
 			name += "/"
 		default:
-			t.Fatalf("Unknown type %+v", item)
+			t.Panicf("Unknown type %+v", item)
 		}
 		return name
 	}

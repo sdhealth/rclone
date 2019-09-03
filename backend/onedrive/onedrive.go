@@ -74,7 +74,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("onedrive", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 				return
 			}
 
@@ -103,7 +103,7 @@ func init() {
 
 			oAuthClient, _, err := oauthutil.NewClient(name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure OneDrive: %v", err)
+				log.Panicf("Failed to configure OneDrive: %v", err)
 			}
 			srv := rest.NewClient(oAuthClient)
 
@@ -145,11 +145,11 @@ func init() {
 				sites := siteResponse{}
 				_, err := srv.CallJSON(&opts, nil, &sites)
 				if err != nil {
-					log.Fatalf("Failed to query available sites: %v", err)
+					log.Panicf("Failed to query available sites: %v", err)
 				}
 
 				if len(sites.Sites) == 0 {
-					log.Fatalf("Search for '%s' returned no results", searchTerm)
+					log.Panicf("Search for '%s' returned no results", searchTerm)
 				} else {
 					fmt.Printf("Found %d sites, please select the one you want to use:\n", len(sites.Sites))
 					for index, site := range sites.Sites {
@@ -174,11 +174,11 @@ func init() {
 				drives := drivesResponse{}
 				_, err := srv.CallJSON(&opts, nil, &drives)
 				if err != nil {
-					log.Fatalf("Failed to query available drives: %v", err)
+					log.Panicf("Failed to query available drives: %v", err)
 				}
 
 				if len(drives.Drives) == 0 {
-					log.Fatalf("No drives found")
+					log.Panicf("No drives found")
 				} else {
 					fmt.Printf("Found %d drives, please select the one you want to use:\n", len(drives.Drives))
 					for index, drive := range drives.Drives {
@@ -196,13 +196,13 @@ func init() {
 			var rootItem api.Item
 			_, err = srv.CallJSON(&opts, nil, &rootItem)
 			if err != nil {
-				log.Fatalf("Failed to query root for drive %s: %v", finalDriveID, err)
+				log.Panicf("Failed to query root for drive %s: %v", finalDriveID, err)
 			}
 
 			fmt.Printf("Found drive '%s' of type '%s', URL: %s\nIs that okay?\n", rootItem.Name, rootItem.ParentReference.DriveType, rootItem.WebURL)
 			// This does not work, YET :)
 			if !config.ConfirmWithConfig(m, "config_drive_ok", true) {
-				log.Fatalf("Cancelled by user")
+				log.Panicf("Cancelled by user")
 			}
 
 			m.Set(configDriveID, finalDriveID)

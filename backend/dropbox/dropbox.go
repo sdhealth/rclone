@@ -113,7 +113,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.ConfigNoOffline("dropbox", name, m, dropboxConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: []fs.Option{{

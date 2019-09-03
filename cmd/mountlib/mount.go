@@ -252,7 +252,7 @@ be copied to the vfs cache before opening with --vfs-cache-mode full.
 			if fdst.Name() == "" || fdst.Name() == "local" {
 				err := checkMountpointOverlap(fdst.Root(), mountpoint)
 				if err != nil {
-					log.Fatalf("Fatal error: %v", err)
+					log.Panicf("Fatal error: %v", err)
 				}
 			}
 
@@ -266,7 +266,7 @@ be copied to the vfs cache before opening with --vfs-cache-mode full.
 			if !AllowNonEmpty && runtime.GOOS != "windows" {
 				err := checkMountEmpty(mountpoint)
 				if err != nil {
-					log.Fatalf("Fatal error: %v", err)
+					log.Panicf("Fatal error: %v", err)
 				}
 			}
 
@@ -289,7 +289,7 @@ be copied to the vfs cache before opening with --vfs-cache-mode full.
 
 			err := Mount(fdst, mountpoint)
 			if err != nil {
-				log.Fatalf("Fatal error: %v", err)
+				log.Panicf("Fatal error: %v", err)
 			}
 		},
 	}

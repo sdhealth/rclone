@@ -90,7 +90,7 @@ func main() {
 	if *clean {
 		err := cleanRemotes(conf.Remotes())
 		if err != nil {
-			log.Fatalf("Failed to clean: %v", err)
+			log.Panicf("Failed to clean: %v", err)
 		}
 		return
 	}

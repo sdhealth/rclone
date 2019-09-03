@@ -62,7 +62,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("yandex", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 				return
 			}
 		},
@@ -248,22 +248,22 @@ func NewFs(name, root string, m configmap.Mapper) (fs.Fs, error) {
 
 	token, err := oauthutil.GetToken(name, m)
 	if err != nil {
-		log.Fatalf("Couldn't read OAuth token (this should never happen).")
+		log.Panicf("Couldn't read OAuth token (this should never happen).")
 	}
 	if token.RefreshToken == "" {
-		log.Fatalf("Unable to get RefreshToken. If you are upgrading from older versions of rclone, please run `rclone config` and re-configure this backend.")
+		log.Panicf("Unable to get RefreshToken. If you are upgrading from older versions of rclone, please run `rclone config` and re-configure this backend.")
 	}
 	if token.TokenType != "OAuth" {
 		token.TokenType = "OAuth"
 		err = oauthutil.PutToken(name, m, token, false)
 		if err != nil {
-			log.Fatalf("Couldn't save OAuth token (this should never happen).")
+			log.Panicf("Couldn't save OAuth token (this should never happen).")
 		}
 		log.Printf("Automatically upgraded OAuth config.")
 	}
 	oAuthClient, _, err := oauthutil.NewClient(name, m, oauthConfig)
 	if err != nil {
-		log.Fatalf("Failed to configure Yandex: %v", err)
+		log.Panicf("Failed to configure Yandex: %v", err)
 	}
 
 	f := &Fs{

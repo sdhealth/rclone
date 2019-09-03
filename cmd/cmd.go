@@ -83,7 +83,7 @@ func NewFsFile(remote string) (fs.Fs, string) {
 	_, _, fsPath, err := fs.ParseRemote(remote)
 	if err != nil {
 		fs.CountError(err)
-		log.Fatalf("Failed to create file system for %q: %v", remote, err)
+		log.Panicf("Failed to create file system for %q: %v", remote, err)
 	}
 	f, err := cache.Get(remote)
 	switch err {
@@ -93,7 +93,7 @@ func NewFsFile(remote string) (fs.Fs, string) {
 		return f, ""
 	default:
 		fs.CountError(err)
-		log.Fatalf("Failed to create file system for %q: %v", remote, err)
+		log.Panicf("Failed to create file system for %q: %v", remote, err)
 	}
 	return nil, ""
 }
@@ -108,13 +108,13 @@ func newFsFileAddFilter(remote string) (fs.Fs, string) {
 		if !filter.Active.InActive() {
 			err := errors.Errorf("Can't limit to single files when using filters: %v", remote)
 			fs.CountError(err)
-			log.Fatalf(err.Error())
+			log.Panicf(err.Error())
 		}
 		// Limit transfers to this file
 		err := filter.Active.AddFile(fileName)
 		if err != nil {
 			fs.CountError(err)
-			log.Fatalf("Failed to limit to single file %q: %v", remote, err)
+			log.Panicf("Failed to limit to single file %q: %v", remote, err)
 		}
 	}
 	return f, fileName
@@ -136,7 +136,7 @@ func newFsDir(remote string) fs.Fs {
 	f, err := cache.Get(remote)
 	if err != nil {
 		fs.CountError(err)
-		log.Fatalf("Failed to create file system for %q: %v", remote, err)
+		log.Panicf("Failed to create file system for %q: %v", remote, err)
 	}
 	return f
 }
@@ -179,18 +179,18 @@ func NewFsSrcDstFiles(args []string) (fsrc fs.Fs, srcFileName string, fdst fs.Fs
 			dstRemote = "."
 		}
 		if dstFileName == "" {
-			log.Fatalf("%q is a directory", args[1])
+			log.Panicf("%q is a directory", args[1])
 		}
 	}
 	fdst, err := cache.Get(dstRemote)
 	switch err {
 	case fs.ErrorIsFile:
 		fs.CountError(err)
-		log.Fatalf("Source doesn't exist or is a directory and destination is a file")
+		log.Panicf("Source doesn't exist or is a directory and destination is a file")
 	case nil:
 	default:
 		fs.CountError(err)
-		log.Fatalf("Failed to create file system for destination %q: %v", dstRemote, err)
+		log.Panicf("Failed to create file system for destination %q: %v", dstRemote, err)
 	}
 	return
 }
@@ -202,7 +202,7 @@ func NewFsDstFile(args []string) (fdst fs.Fs, dstFileName string) {
 		dstRemote = "."
 	}
 	if dstFileName == "" {
-		log.Fatalf("%q is a directory", args[0])
+		log.Panicf("%q is a directory", args[0])
 	}
 	fdst = newFsDir(dstRemote)
 	return
@@ -362,7 +362,7 @@ func initConfig() {
 	// Load filters
 	err := filterflags.Reload()
 	if err != nil {
-		log.Fatalf("Failed to load filters: %v", err)
+		log.Panicf("Failed to load filters: %v", err)
 	}
 
 	// Write the args for debug purposes
@@ -371,7 +371,7 @@ func initConfig() {
 	// Start the remote control server if configured
 	_, err = rcserver.Start(&rcflags.Opt)
 	if err != nil {
-		log.Fatalf("Failed to start remote control: %v", err)
+		log.Panicf("Failed to start remote control: %v", err)
 	}
 
 	// Setup CPU profiling if desired
@@ -497,6 +497,6 @@ func Main() {
 	setupRootCommand(Root)
 	AddBackendFlags()
 	if err := Root.Execute(); err != nil {
-		log.Fatalf("Fatal error: %v", err)
+		log.Panicf("Fatal error: %v", err)
 	}
 }

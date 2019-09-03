@@ -83,7 +83,7 @@ func init() {
 			}
 			err := oauthutil.Config("google cloud storage", name, m, storageConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: []fs.Option{{

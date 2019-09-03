@@ -40,7 +40,7 @@ func TestHashSet(t *testing.T) {
 	assert.Equal(t, 2, h.Count())
 	one := h.GetOne()
 	if !(one == hash.MD5 || one == hash.SHA1) {
-		t.Fatalf("expected to be either MD5 or SHA1, got %v", one)
+		t.Panicf("expected to be either MD5 or SHA1, got %v", one)
 	}
 	assert.True(t, h.SubsetOf(hash.Supported))
 	assert.False(t, h.SubsetOf(hash.NewHashSet(hash.MD5)))

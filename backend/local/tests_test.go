@@ -41,12 +41,12 @@ func TestUncPaths(t *testing.T) {
 	for i, p := range uncTestPaths {
 		unc := uncPath(p)
 		if unc != uncTestPathsResults[i] {
-			t.Fatalf("UNC test path\nInput:%s\nOutput:%s\nExpected:%s", p, unc, uncTestPathsResults[i])
+			t.Panicf("UNC test path\nInput:%s\nOutput:%s\nExpected:%s", p, unc, uncTestPathsResults[i])
 		}
 		// Test we don't add more.
 		unc = uncPath(unc)
 		if unc != uncTestPathsResults[i] {
-			t.Fatalf("UNC test path\nInput:%s\nOutput:%s\nExpected:%s", p, unc, uncTestPathsResults[i])
+			t.Panicf("UNC test path\nInput:%s\nOutput:%s\nExpected:%s", p, unc, uncTestPathsResults[i])
 		}
 	}
 }
@@ -64,7 +64,7 @@ func TestCleanRemote(t *testing.T) {
 		got := f.cleanRemote(test[0])
 		expect := test[1]
 		if got != expect {
-			t.Fatalf("got %q, expected %q", got, expect)
+			t.Panicf("got %q, expected %q", got, expect)
 		}
 	}
 }
@@ -85,7 +85,7 @@ func TestCleanWindows(t *testing.T) {
 		got := cleanWindowsName(nil, test[0])
 		expect := test[1]
 		if got != expect {
-			t.Fatalf("got %q, expected %q", got, expect)
+			t.Panicf("got %q, expected %q", got, expect)
 		}
 	}
 }

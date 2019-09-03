@@ -55,7 +55,7 @@ type Run struct {
 	FremoteName  string
 	cleanRemote  func()
 	mkdir        map[string]bool // whether the remote has been made yet for the fs name
-	Logf, Fatalf func(text string, args ...interface{})
+	Logf, Panicf func(text string, args ...interface{})
 }
 
 // TestMain drives the tests
@@ -84,7 +84,7 @@ var oneRun *Run
 func newRun() *Run {
 	r := &Run{
 		Logf:   log.Printf,
-		Fatalf: log.Fatalf,
+		Panicf: log.Panicf,
 		mkdir:  make(map[string]bool),
 	}
 
@@ -93,23 +93,23 @@ func newRun() *Run {
 	var err error
 	r.Fremote, r.FremoteName, r.cleanRemote, err = RandomRemote()
 	if err != nil {
-		r.Fatalf("Failed to open remote %q: %v", *RemoteName, err)
+		r.Panicf("Failed to open remote %q: %v", *RemoteName, err)
 	}
 
 	r.LocalName, err = ioutil.TempDir("", "rclone")
 	if err != nil {
-		r.Fatalf("Failed to create temp dir: %v", err)
+		r.Panicf("Failed to create temp dir: %v", err)
 	}
 	r.LocalName = filepath.ToSlash(r.LocalName)
 	r.Flocal, err = fs.NewFs(r.LocalName)
 	if err != nil {
-		r.Fatalf("Failed to make %q: %v", r.LocalName, err)
+		r.Panicf("Failed to make %q: %v", r.LocalName, err)
 	}
 	return r
 }
 
 // run f(), retrying it until it returns with no error or the limit
-// expires and it calls t.Fatalf
+// expires and it calls t.Panicf
 func retry(t *testing.T, what string, f func() error) {
 	var err error
 	for try := 1; try <= *ListRetries; try++ {
@@ -171,7 +171,7 @@ func newRunIndividual(t *testing.T, individual bool) *Run {
 		}
 	}
 	r.Logf = t.Logf
-	r.Fatalf = t.Fatalf
+	r.Panicf = t.Panicf
 	r.Logf("Remote %q, Local %q, Modify Window %q", r.Fremote, r.Flocal, fs.GetModifyWindow(r.Fremote))
 	return r
 }
@@ -197,7 +197,7 @@ func (r *Run) RenameFile(item Item, newpath string) Item {
 	oldFilepath := path.Join(r.LocalName, item.Path)
 	newFilepath := path.Join(r.LocalName, newpath)
 	if err := os.Rename(oldFilepath, newFilepath); err != nil {
-		r.Fatalf("Failed to rename file from %q to %q: %v", item.Path, newpath, err)
+		r.Panicf("Failed to rename file from %q to %q: %v", item.Path, newpath, err)
 	}
 
 	item.Path = newpath
@@ -213,15 +213,15 @@ func (r *Run) WriteFile(filePath, content string, t time.Time) Item {
 	dirPath := path.Dir(filePath)
 	err := os.MkdirAll(dirPath, 0770)
 	if err != nil {
-		r.Fatalf("Failed to make directories %q: %v", dirPath, err)
+		r.Panicf("Failed to make directories %q: %v", dirPath, err)
 	}
 	err = ioutil.WriteFile(filePath, []byte(content), 0600)
 	if err != nil {
-		r.Fatalf("Failed to write file %q: %v", filePath, err)
+		r.Panicf("Failed to write file %q: %v", filePath, err)
 	}
 	err = os.Chtimes(filePath, t, t)
 	if err != nil {
-		r.Fatalf("Failed to chtimes file %q: %v", filePath, err)
+		r.Panicf("Failed to chtimes file %q: %v", filePath, err)
 	}
 	return item
 }
@@ -230,7 +230,7 @@ func (r *Run) WriteFile(filePath, content string, t time.Time) Item {
 func (r *Run) ForceMkdir(ctx context.Context, f fs.Fs) {
 	err := f.Mkdir(ctx, "")
 	if err != nil {
-		r.Fatalf("Failed to mkdir %q: %v", f, err)
+		r.Panicf("Failed to mkdir %q: %v", f, err)
 	}
 	r.mkdir[f.String()] = true
 }
@@ -248,7 +248,7 @@ func (r *Run) WriteObjectTo(ctx context.Context, f fs.Fs, remote, content string
 	if useUnchecked {
 		put = f.Features().PutUnchecked
 		if put == nil {
-			r.Fatalf("Fs doesn't support PutUnchecked")
+			r.Panicf("Fs doesn't support PutUnchecked")
 		}
 	}
 	r.Mkdir(ctx, f)
@@ -266,7 +266,7 @@ func (r *Run) WriteObjectTo(ctx context.Context, f fs.Fs, remote, content string
 			time.Sleep(2 * time.Second)
 			continue
 		}
-		r.Fatalf("Failed to put %q to %q: %v", remote, f, err)
+		r.Panicf("Failed to put %q to %q: %v", remote, f, err)
 	}
 	return NewItem(remote, content, modTime)
 }
@@ -300,7 +300,7 @@ func (r *Run) CheckWithDuplicates(t *testing.T, items ...Item) {
 	// do the listing
 	objs, _, err := walk.GetAll(context.Background(), r.Fremote, "", true, -1)
 	if err != nil && err != fs.ErrorDirNotFound {
-		t.Fatalf("Error listing: %v", err)
+		t.Panicf("Error listing: %v", err)
 	}
 
 	// construct a []string of actual items

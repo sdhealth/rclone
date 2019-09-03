@@ -1079,7 +1079,7 @@ func Find(name string) (*RegInfo, error) {
 func MustFind(name string) *RegInfo {
 	fs, err := Find(name)
 	if err != nil {
-		log.Fatalf("Failed to find remote: %v", err)
+		log.Panicf("Failed to find remote: %v", err)
 	}
 	return fs
 }

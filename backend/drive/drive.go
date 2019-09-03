@@ -174,12 +174,12 @@ func init() {
 			if opt.ServiceAccountFile == "" {
 				err = oauthutil.Config("drive", name, m, driveConfig)
 				if err != nil {
-					log.Fatalf("Failed to configure token: %v", err)
+					log.Panicf("Failed to configure token: %v", err)
 				}
 			}
 			err = configTeamDrive(opt, m, name)
 			if err != nil {
-				log.Fatalf("Failed to configure team drive: %v", err)
+				log.Panicf("Failed to configure team drive: %v", err)
 			}
 		},
 		Options: []fs.Option{{
@@ -412,7 +412,7 @@ configurations.`,
 	} {
 		for mimeType, extension := range m {
 			if err := mime.AddExtensionType(extension, mimeType); err != nil {
-				log.Fatalf("Failed to register MIME type %q: %v", mimeType, err)
+				log.Panicf("Failed to register MIME type %q: %v", mimeType, err)
 			}
 		}
 	}

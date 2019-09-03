@@ -11,7 +11,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatalf("Syntax: %s <root>", os.Args[0])
+		log.Panicf("Syntax: %s <root>", os.Args[0])
 	}
 	root := os.Args[1]
 

@@ -585,7 +585,7 @@ func (s *authServer) Start() {
 	var err error
 	s.listener, err = net.Listen("tcp", s.bindAddress)
 	if err != nil {
-		log.Fatalf("Failed to start auth webserver: %v", err)
+		log.Panicf("Failed to start auth webserver: %v", err)
 	}
 	err = s.server.Serve(s.listener)
 	fs.Debugf(nil, "Closed auth server with error: %v", err)
