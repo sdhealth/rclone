@@ -7,7 +7,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
+	"github.com/rclone/rclone/fs"
 )
 
 // Directory is a generic dir that stores basic information about it

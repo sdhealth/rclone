@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
+	"github.com/rclone/rclone/fs"
 )
 
 // GetTemplate returns the HTML template for serving directories via HTTP

@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/fs/operations"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/fs/operations"
 	"github.com/spf13/cobra"
 )
 
@@ -46,7 +46,7 @@ a lot of data, you're better off caching locally and then
 
 		stat, _ := os.Stdin.Stat()
 		if (stat.Mode() & os.ModeCharDevice) != 0 {
-			log.Panicf("nothing to read from standard input (stdin).")
+			log.Fatalf("nothing to read from standard input (stdin).")
 		}
 
 		fdst, dstFileName := cmd.NewFsDstFile(args)

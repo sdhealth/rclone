@@ -7,11 +7,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/configflags"
-	"github.com/sdhealth/rclone/fs/filter/filterflags"
-	"github.com/sdhealth/rclone/fs/rc/rcflags"
-	"github.com/sdhealth/rclone/lib/atexit"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/configflags"
+	"github.com/rclone/rclone/fs/filter/filterflags"
+	"github.com/rclone/rclone/fs/rc/rcflags"
+	"github.com/rclone/rclone/lib/atexit"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -101,7 +101,7 @@ var helpFlags = &cobra.Command{
 		if len(args) > 0 {
 			re, err := regexp.Compile(args[0])
 			if err != nil {
-				log.Panicf("Failed to compile flags regexp: %v", err)
+				log.Fatalf("Failed to compile flags regexp: %v", err)
 			}
 			flagsRe = re
 		}

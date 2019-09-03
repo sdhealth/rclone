@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	_ "github.com/sdhealth/rclone/backend/all" // import all the backends
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fstest"
+	_ "github.com/rclone/rclone/backend/all" // import all the backends
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

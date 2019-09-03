@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/crypt/pkcs7"
+	"github.com/rclone/rclone/backend/crypt/pkcs7"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

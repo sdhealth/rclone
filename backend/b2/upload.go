@@ -16,11 +16,11 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/b2/api"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/backend/b2/api"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/lib/rest"
 )
 
 type hashAppendingReader struct {

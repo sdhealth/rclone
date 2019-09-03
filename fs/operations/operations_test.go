@@ -35,14 +35,14 @@ import (
 	"testing"
 	"time"
 
-	_ "github.com/sdhealth/rclone/backend/all" // import all backends
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/fs/filter"
-	"github.com/sdhealth/rclone/fs/fshttp"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/operations"
-	"github.com/sdhealth/rclone/fstest"
+	_ "github.com/rclone/rclone/backend/all" // import all backends
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/fs/filter"
+	"github.com/rclone/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/operations"
+	"github.com/rclone/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

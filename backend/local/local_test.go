@@ -4,8 +4,8 @@ package local_test
 import (
 	"testing"
 
-	"github.com/sdhealth/rclone/backend/local"
-	"github.com/sdhealth/rclone/fstest/fstests"
+	"github.com/rclone/rclone/backend/local"
+	"github.com/rclone/rclone/fstest/fstests"
 )
 
 // TestIntegration runs integration tests against the remote

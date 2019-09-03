@@ -12,10 +12,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sdhealth/rclone/cmd/serve/proxy/proxyflags"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fstest"
+	"github.com/rclone/rclone/cmd/serve/proxy/proxyflags"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

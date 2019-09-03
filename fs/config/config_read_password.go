@@ -23,7 +23,7 @@ func ReadPassword() string {
 	line, err := terminal.ReadPassword(stdin)
 	_, _ = fmt.Fprintln(os.Stderr)
 	if err != nil {
-		log.Panicf("Failed to read password: %v", err)
+		log.Fatalf("Failed to read password: %v", err)
 	}
 	return string(line)
 }

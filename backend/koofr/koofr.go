@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/hash"
 
 	httpclient "github.com/koofr/go-httpclient"
 	koofrclient "github.com/koofr/go-koofrclient"

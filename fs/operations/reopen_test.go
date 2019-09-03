@@ -7,9 +7,9 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fstest/mockobject"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fstest/mockobject"
 	"github.com/stretchr/testify/assert"
 )
 

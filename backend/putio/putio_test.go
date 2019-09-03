@@ -4,7 +4,7 @@ package putio
 import (
 	"testing"
 
-	"github.com/sdhealth/rclone/fstest/fstests"
+	"github.com/rclone/rclone/fstest/fstests"
 )
 
 // TestIntegration runs integration tests against the remote

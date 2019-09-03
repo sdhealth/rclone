@@ -5,11 +5,11 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/lib/dircache"
-	"github.com/sdhealth/rclone/lib/oauthutil"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/lib/dircache"
+	"github.com/rclone/rclone/lib/oauthutil"
 	"golang.org/x/oauth2"
 )
 
@@ -48,7 +48,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.ConfigNoOffline("putio", name, m, putioConfig)
 			if err != nil {
-				log.Panicf("Failed to configure token: %v", err)
+				log.Fatalf("Failed to configure token: %v", err)
 			}
 		},
 	})

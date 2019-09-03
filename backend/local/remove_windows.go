@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
+	"github.com/rclone/rclone/fs"
 )
 
 const (

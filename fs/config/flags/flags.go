@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
+	"github.com/rclone/rclone/fs"
 	"github.com/spf13/pflag"
 )
 
@@ -19,11 +19,11 @@ func setDefaultFromEnv(name string) {
 	if found {
 		flag := pflag.Lookup(name)
 		if flag == nil {
-			log.Panicf("Couldn't find flag %q", name)
+			log.Fatalf("Couldn't find flag %q", name)
 		}
 		err := flag.Value.Set(newValue)
 		if err != nil {
-			log.Panicf("Invalid value for environment variable %q: %v", key, err)
+			log.Fatalf("Invalid value for environment variable %q: %v", key, err)
 		}
 		fs.Debugf(nil, "Set default for %q from %q to %q (%v)", name, key, newValue, flag.Value)
 		flag.DefValue = newValue

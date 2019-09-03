@@ -23,8 +23,8 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/sdhealth/rclone/backend/all" // import all fs
-	"github.com/sdhealth/rclone/lib/pacer"
+	_ "github.com/rclone/rclone/backend/all" // import all fs
+	"github.com/rclone/rclone/lib/pacer"
 )
 
 var (
@@ -90,7 +90,7 @@ func main() {
 	if *clean {
 		err := cleanRemotes(conf.Remotes())
 		if err != nil {
-			log.Panicf("Failed to clean: %v", err)
+			log.Fatalf("Failed to clean: %v", err)
 		}
 		return
 	}

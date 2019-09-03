@@ -18,14 +18,14 @@ import (
 	"unicode/utf8"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/lib/file"
-	"github.com/sdhealth/rclone/lib/readers"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/lib/file"
+	"github.com/rclone/rclone/lib/readers"
 )
 
 // Constants
@@ -86,7 +86,7 @@ are being uploaded and aborts with a message which starts "can't copy
 - source file is being updated" if the file changes during upload.
 
 However on some file systems this modification time check may fail (eg
-[Glusterfs #2206](https://github.com/sdhealth/rclone/issues/2206)) so this
+[Glusterfs #2206](https://github.com/rclone/rclone/issues/2206)) so this
 check can be disabled with this flag.`,
 			Default:  false,
 			Advanced: true,

@@ -17,12 +17,12 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/fspath"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/fspath"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/lib/pacer"
 )
 
 // EntryType can be associated with remote paths to identify their type
@@ -1079,7 +1079,7 @@ func Find(name string) (*RegInfo, error) {
 func MustFind(name string) *RegInfo {
 	fs, err := Find(name)
 	if err != nil {
-		log.Panicf("Failed to find remote: %v", err)
+		log.Fatalf("Failed to find remote: %v", err)
 	}
 	return fs
 }

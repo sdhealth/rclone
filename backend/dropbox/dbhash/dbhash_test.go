@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sdhealth/rclone/backend/dropbox/dbhash"
+	"github.com/rclone/rclone/backend/dropbox/dbhash"
 	"github.com/stretchr/testify/assert"
 )
 

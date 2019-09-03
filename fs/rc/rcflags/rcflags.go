@@ -2,9 +2,9 @@
 package rcflags
 
 import (
-	"github.com/sdhealth/rclone/cmd/serve/httplib/httpflags"
-	"github.com/sdhealth/rclone/fs/config/flags"
-	"github.com/sdhealth/rclone/fs/rc"
+	"github.com/rclone/rclone/cmd/serve/httplib/httpflags"
+	"github.com/rclone/rclone/fs/config/flags"
+	"github.com/rclone/rclone/fs/rc"
 	"github.com/spf13/pflag"
 )
 

@@ -16,12 +16,12 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/fshttp"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/lib/rest"
 	"golang.org/x/net/html"
 )
 

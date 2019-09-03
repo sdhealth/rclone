@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/operations"
-	"github.com/sdhealth/rclone/fs/walk"
-	"github.com/sdhealth/rclone/fstest"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/operations"
+	"github.com/rclone/rclone/fs/walk"
+	"github.com/rclone/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

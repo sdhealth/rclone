@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fstest/mockobject"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fstest/mockobject"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

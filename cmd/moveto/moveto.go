@@ -3,9 +3,9 @@ package moveto
 import (
 	"context"
 
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/fs/operations"
-	"github.com/sdhealth/rclone/fs/sync"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/fs/operations"
+	"github.com/rclone/rclone/fs/sync"
 	"github.com/spf13/cobra"
 )
 

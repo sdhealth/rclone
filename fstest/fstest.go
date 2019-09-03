@@ -22,12 +22,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/walk"
-	"github.com/sdhealth/rclone/lib/random"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/walk"
+	"github.com/rclone/rclone/lib/random"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/text/unicode/norm"
@@ -100,7 +100,7 @@ func NewItem(Path, Content string, modTime time.Time) Item {
 	buf := bytes.NewBufferString(Content)
 	_, err := io.Copy(hash, buf)
 	if err != nil {
-		log.Panicf("Failed to create item: %v", err)
+		log.Fatalf("Failed to create item: %v", err)
 	}
 	i.Hashes = hash.Sums()
 	return i
@@ -407,7 +407,7 @@ func CompareItems(t *testing.T, entries fs.DirEntries, items []Item, expectedDir
 func Time(timeString string) time.Time {
 	t, err := time.Parse(time.RFC3339Nano, timeString)
 	if err != nil {
-		log.Panicf("Failed to parse time %q: %v", timeString, err)
+		log.Fatalf("Failed to parse time %q: %v", timeString, err)
 	}
 	return t
 }
@@ -442,7 +442,7 @@ func RandomRemoteName(remoteName string) (string, string, error) {
 		}
 		leafName = "rclone-test-" + random.String(24)
 		if !MatchTestRemote.MatchString(leafName) {
-			log.Panicf("%q didn't match the test remote name regexp", leafName)
+			log.Fatalf("%q didn't match the test remote name regexp", leafName)
 		}
 		remoteName += leafName
 	}

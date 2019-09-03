@@ -15,10 +15,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/box/api"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/backend/box/api"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/lib/rest"
 )
 
 // createUploadSession creates an upload session for the object
@@ -97,7 +97,7 @@ func (o *Object) commitUpload(SessionID string, parts []api.Part, modTime time.T
 	var body []byte
 	var resp *http.Response
 	// For discussion of this value see:
-	// https://github.com/sdhealth/rclone/issues/2054
+	// https://github.com/rclone/rclone/issues/2054
 	maxTries := o.fs.opt.CommitRetries
 	const defaultDelay = 10
 	var tries int

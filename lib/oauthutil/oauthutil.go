@@ -14,10 +14,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/fshttp"
 	"github.com/skratchdot/open-golang/open"
 	"golang.org/x/oauth2"
 )
@@ -585,7 +585,7 @@ func (s *authServer) Start() {
 	var err error
 	s.listener, err = net.Listen("tcp", s.bindAddress)
 	if err != nil {
-		log.Panicf("Failed to start auth webserver: %v", err)
+		log.Fatalf("Failed to start auth webserver: %v", err)
 	}
 	err = s.server.Serve(s.listener)
 	fs.Debugf(nil, "Closed auth server with error: %v", err)

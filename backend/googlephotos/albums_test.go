@@ -3,7 +3,7 @@ package googlephotos
 import (
 	"testing"
 
-	"github.com/sdhealth/rclone/backend/googlephotos/api"
+	"github.com/rclone/rclone/backend/googlephotos/api"
 	"github.com/stretchr/testify/assert"
 )
 

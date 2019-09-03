@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/sdhealth/rclone/fs/cache"
-	"github.com/sdhealth/rclone/fs/rc"
-	"github.com/sdhealth/rclone/fstest"
+	"github.com/rclone/rclone/fs/cache"
+	"github.com/rclone/rclone/fs/rc"
+	"github.com/rclone/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -27,19 +27,19 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/fshttp"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/walk"
-	"github.com/sdhealth/rclone/lib/dircache"
-	"github.com/sdhealth/rclone/lib/oauthutil"
-	"github.com/sdhealth/rclone/lib/pacer"
-	"github.com/sdhealth/rclone/lib/readers"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/walk"
+	"github.com/rclone/rclone/lib/dircache"
+	"github.com/rclone/rclone/lib/oauthutil"
+	"github.com/rclone/rclone/lib/pacer"
+	"github.com/rclone/rclone/lib/readers"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	drive_v2 "google.golang.org/api/drive/v2"
@@ -174,12 +174,12 @@ func init() {
 			if opt.ServiceAccountFile == "" {
 				err = oauthutil.Config("drive", name, m, driveConfig)
 				if err != nil {
-					log.Panicf("Failed to configure token: %v", err)
+					log.Fatalf("Failed to configure token: %v", err)
 				}
 			}
 			err = configTeamDrive(opt, m, name)
 			if err != nil {
-				log.Panicf("Failed to configure team drive: %v", err)
+				log.Fatalf("Failed to configure team drive: %v", err)
 			}
 		},
 		Options: []fs.Option{{
@@ -333,7 +333,7 @@ export URLs for drive documents.  Users have reported that the
 official export URLs can't export large documents, whereas these
 unofficial ones can.
 
-See rclone issue [#2243](https://github.com/sdhealth/rclone/issues/2243) for background,
+See rclone issue [#2243](https://github.com/rclone/rclone/issues/2243) for background,
 [this google drive issue](https://issuetracker.google.com/issues/36761333) and
 [this helpful post](https://www.labnol.org/internet/direct-links-for-google-drive/28356/).`,
 			Advanced: true,
@@ -412,7 +412,7 @@ configurations.`,
 	} {
 		for mimeType, extension := range m {
 			if err := mime.AddExtensionType(extension, mimeType); err != nil {
-				log.Panicf("Failed to register MIME type %q: %v", mimeType, err)
+				log.Fatalf("Failed to register MIME type %q: %v", mimeType, err)
 			}
 		}
 	}
@@ -1018,7 +1018,7 @@ func NewFs(name, path string, m configmap.Mapper) (fs.Fs, error) {
 		}
 		// XXX: update the old f here instead of returning tempF, since
 		// `features` were already filled with functions having *f as a receiver.
-		// See https://github.com/sdhealth/rclone/issues/2182
+		// See https://github.com/rclone/rclone/issues/2182
 		f.dirCache = tempF.dirCache
 		f.root = tempF.root
 		return f, fs.ErrorIsFile

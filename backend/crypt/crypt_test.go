@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/sdhealth/rclone/backend/crypt"
-	_ "github.com/sdhealth/rclone/backend/drive" // for integration tests
-	_ "github.com/sdhealth/rclone/backend/local"
-	_ "github.com/sdhealth/rclone/backend/swift" // for integration tests
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fstest"
-	"github.com/sdhealth/rclone/fstest/fstests"
+	"github.com/rclone/rclone/backend/crypt"
+	_ "github.com/rclone/rclone/backend/drive" // for integration tests
+	_ "github.com/rclone/rclone/backend/local"
+	_ "github.com/rclone/rclone/backend/swift" // for integration tests
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fstest"
+	"github.com/rclone/rclone/fstest/fstests"
 )
 
 // TestIntegration runs integration tests against the remote

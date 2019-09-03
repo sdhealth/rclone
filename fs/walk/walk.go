@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/dirtree"
-	"github.com/sdhealth/rclone/fs/filter"
-	"github.com/sdhealth/rclone/fs/list"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/dirtree"
+	"github.com/rclone/rclone/fs/filter"
+	"github.com/rclone/rclone/fs/list"
 )
 
 // ErrorSkipDir is used as a return value from Walk to indicate that the

@@ -12,10 +12,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sdhealth/rclone/cmd/serve/httplib"
+	"github.com/rclone/rclone/cmd/serve/httplib"
 
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/cmd/serve/httplib/httpflags"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/cmd/serve/httplib/httpflags"
 	"github.com/stretchr/testify/require"
 )
 

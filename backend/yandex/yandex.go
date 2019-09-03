@@ -14,18 +14,18 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/yandex/api"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/lib/oauthutil"
-	"github.com/sdhealth/rclone/lib/pacer"
-	"github.com/sdhealth/rclone/lib/readers"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/backend/yandex/api"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/lib/oauthutil"
+	"github.com/rclone/rclone/lib/pacer"
+	"github.com/rclone/rclone/lib/readers"
+	"github.com/rclone/rclone/lib/rest"
 	"golang.org/x/oauth2"
 )
 
@@ -62,7 +62,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("yandex", name, m, oauthConfig)
 			if err != nil {
-				log.Panicf("Failed to configure token: %v", err)
+				log.Fatalf("Failed to configure token: %v", err)
 				return
 			}
 		},
@@ -248,22 +248,22 @@ func NewFs(name, root string, m configmap.Mapper) (fs.Fs, error) {
 
 	token, err := oauthutil.GetToken(name, m)
 	if err != nil {
-		log.Panicf("Couldn't read OAuth token (this should never happen).")
+		log.Fatalf("Couldn't read OAuth token (this should never happen).")
 	}
 	if token.RefreshToken == "" {
-		log.Panicf("Unable to get RefreshToken. If you are upgrading from older versions of rclone, please run `rclone config` and re-configure this backend.")
+		log.Fatalf("Unable to get RefreshToken. If you are upgrading from older versions of rclone, please run `rclone config` and re-configure this backend.")
 	}
 	if token.TokenType != "OAuth" {
 		token.TokenType = "OAuth"
 		err = oauthutil.PutToken(name, m, token, false)
 		if err != nil {
-			log.Panicf("Couldn't save OAuth token (this should never happen).")
+			log.Fatalf("Couldn't save OAuth token (this should never happen).")
 		}
 		log.Printf("Automatically upgraded OAuth config.")
 	}
 	oAuthClient, _, err := oauthutil.NewClient(name, m, oauthConfig)
 	if err != nil {
-		log.Panicf("Failed to configure Yandex: %v", err)
+		log.Fatalf("Failed to configure Yandex: %v", err)
 	}
 
 	f := &Fs{

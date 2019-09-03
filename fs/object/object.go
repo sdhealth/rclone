@@ -9,8 +9,8 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/hash"
 )
 
 // NewStaticObjectInfo returns a static ObjectInfo

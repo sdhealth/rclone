@@ -38,11 +38,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/cache"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/object"
-	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/cache"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/object"
+	"github.com/rclone/rclone/fs/walk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -84,7 +84,7 @@ var oneRun *Run
 func newRun() *Run {
 	r := &Run{
 		Logf:   log.Printf,
-		Fatalf: log.Panicf,
+		Fatalf: log.Fatalf,
 		mkdir:  make(map[string]bool),
 	}
 

@@ -10,6 +10,6 @@ import (
 )
 
 func startBackgroundMode() bool {
-	log.Panicf("background mode not supported on %s platform", runtime.GOOS)
+	log.Fatalf("background mode not supported on %s platform", runtime.GOOS)
 	return false
 }

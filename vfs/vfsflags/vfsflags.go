@@ -2,9 +2,9 @@
 package vfsflags
 
 import (
-	"github.com/sdhealth/rclone/fs/config/flags"
-	"github.com/sdhealth/rclone/fs/rc"
-	"github.com/sdhealth/rclone/vfs"
+	"github.com/rclone/rclone/fs/config/flags"
+	"github.com/rclone/rclone/fs/rc"
+	"github.com/rclone/rclone/vfs"
 	"github.com/spf13/pflag"
 )
 

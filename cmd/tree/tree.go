@@ -12,11 +12,11 @@ import (
 
 	"github.com/a8m/tree"
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/dirtree"
-	"github.com/sdhealth/rclone/fs/log"
-	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/dirtree"
+	"github.com/rclone/rclone/fs/log"
+	"github.com/rclone/rclone/fs/walk"
 	"github.com/spf13/cobra"
 )
 

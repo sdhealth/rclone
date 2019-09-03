@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/version"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/version"
 	"github.com/spf13/cobra"
 )
 

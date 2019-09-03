@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sdhealth/rclone/lib/encoder"
+	"github.com/rclone/rclone/lib/encoder"
 )
 
 const (

@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/lib/pacer"
 	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 )

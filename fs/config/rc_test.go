@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	_ "github.com/sdhealth/rclone/backend/local"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/rc"
+	_ "github.com/rclone/rclone/backend/local"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/rc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

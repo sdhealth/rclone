@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/flags"
-	fsLog "github.com/sdhealth/rclone/fs/log"
-	"github.com/sdhealth/rclone/fs/rc"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/flags"
+	fsLog "github.com/rclone/rclone/fs/log"
+	"github.com/rclone/rclone/fs/rc"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 )
@@ -115,17 +115,17 @@ func SetFlags() {
 	}
 	if quiet {
 		if verbose > 0 {
-			log.Panicf("Can't set -v and -q")
+			log.Fatalf("Can't set -v and -q")
 		}
 		fs.Config.LogLevel = fs.LogLevelError
 	}
 	logLevelFlag := pflag.Lookup("log-level")
 	if logLevelFlag != nil && logLevelFlag.Changed {
 		if verbose > 0 {
-			log.Panicf("Can't set -v and --log-level")
+			log.Fatalf("Can't set -v and --log-level")
 		}
 		if quiet {
-			log.Panicf("Can't set -q and --log-level")
+			log.Fatalf("Can't set -q and --log-level")
 		}
 	}
 	if fs.Config.UseJSONLog {
@@ -162,7 +162,7 @@ func SetFlags() {
 	switch {
 	case deleteBefore && (deleteDuring || deleteAfter),
 		deleteDuring && deleteAfter:
-		log.Panicf(`Only one of --delete-before, --delete-during or --delete-after can be used.`)
+		log.Fatalf(`Only one of --delete-before, --delete-during or --delete-after can be used.`)
 	case deleteBefore:
 		fs.Config.DeleteMode = fs.DeleteModeBefore
 	case deleteDuring:
@@ -174,11 +174,11 @@ func SetFlags() {
 	}
 
 	if fs.Config.IgnoreSize && fs.Config.SizeOnly {
-		log.Panicf(`Can't use --size-only and --ignore-size together.`)
+		log.Fatalf(`Can't use --size-only and --ignore-size together.`)
 	}
 
 	if fs.Config.CompareDest != "" && fs.Config.CopyDest != "" {
-		log.Panicf(`Can't use --compare-dest with --copy-dest.`)
+		log.Fatalf(`Can't use --compare-dest with --copy-dest.`)
 	}
 
 	switch {
@@ -193,17 +193,17 @@ func SetFlags() {
 	if bindAddr != "" {
 		addrs, err := net.LookupIP(bindAddr)
 		if err != nil {
-			log.Panicf("--bind: Failed to parse %q as IP address: %v", bindAddr, err)
+			log.Fatalf("--bind: Failed to parse %q as IP address: %v", bindAddr, err)
 		}
 		if len(addrs) != 1 {
-			log.Panicf("--bind: Expecting 1 IP address for %q but got %d", bindAddr, len(addrs))
+			log.Fatalf("--bind: Expecting 1 IP address for %q but got %d", bindAddr, len(addrs))
 		}
 		fs.Config.BindAddr = addrs[0]
 	}
 
 	if disableFeatures != "" {
 		if disableFeatures == "help" {
-			log.Panicf("Possible backend features are: %s\n", strings.Join(new(fs.Features).List(), ", "))
+			log.Fatalf("Possible backend features are: %s\n", strings.Join(new(fs.Features).List(), ", "))
 		}
 		fs.Config.DisableFeatures = strings.Split(disableFeatures, ",")
 	}

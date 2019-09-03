@@ -5,14 +5,14 @@
 package sftp
 
 import (
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/cmd/serve/proxy"
-	"github.com/sdhealth/rclone/cmd/serve/proxy/proxyflags"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config/flags"
-	"github.com/sdhealth/rclone/fs/rc"
-	"github.com/sdhealth/rclone/vfs"
-	"github.com/sdhealth/rclone/vfs/vfsflags"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/cmd/serve/proxy"
+	"github.com/rclone/rclone/cmd/serve/proxy/proxyflags"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config/flags"
+	"github.com/rclone/rclone/fs/rc"
+	"github.com/rclone/rclone/vfs"
+	"github.com/rclone/rclone/vfs/vfsflags"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )

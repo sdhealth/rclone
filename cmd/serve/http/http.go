@@ -7,14 +7,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sdhealth/rclone/cmd"
-	"github.com/sdhealth/rclone/cmd/serve/httplib"
-	"github.com/sdhealth/rclone/cmd/serve/httplib/httpflags"
-	"github.com/sdhealth/rclone/cmd/serve/httplib/serve"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/vfs"
-	"github.com/sdhealth/rclone/vfs/vfsflags"
+	"github.com/rclone/rclone/cmd"
+	"github.com/rclone/rclone/cmd/serve/httplib"
+	"github.com/rclone/rclone/cmd/serve/httplib/httpflags"
+	"github.com/rclone/rclone/cmd/serve/httplib/serve"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/vfs"
+	"github.com/rclone/rclone/vfs/vfsflags"
 	"github.com/spf13/cobra"
 )
 

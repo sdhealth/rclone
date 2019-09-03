@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs/rc"
-	"github.com/sdhealth/rclone/fs/rc/rcflags"
+	"github.com/rclone/rclone/fs/rc"
+	"github.com/rclone/rclone/fs/rc/rcflags"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

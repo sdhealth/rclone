@@ -17,8 +17,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/sdhealth/rclone/lib/file"
-	"github.com/sdhealth/rclone/lib/random"
+	"github.com/rclone/rclone/lib/file"
+	"github.com/rclone/rclone/lib/random"
 )
 
 var (
@@ -293,7 +293,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) != 1 {
-		log.Panicf("%s: Syntax [opts] <directory>", os.Args[0])
+		log.Fatalf("%s: Syntax [opts] <directory>", os.Args[0])
 	}
 	dir := args[0]
 	_ = os.MkdirAll(dir, 0777)

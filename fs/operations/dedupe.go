@@ -11,10 +11,10 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/walk"
 	"github.com/spf13/pflag"
 )
 
@@ -22,7 +22,7 @@ import (
 func dedupeRename(ctx context.Context, f fs.Fs, remote string, objs []fs.Object) {
 	doMove := f.Features().Move
 	if doMove == nil {
-		log.Panicf("Fs %v doesn't support Move", f)
+		log.Fatalf("Fs %v doesn't support Move", f)
 	}
 	ext := path.Ext(remote)
 	base := remote[:len(remote)-len(ext)]

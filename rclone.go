@@ -4,9 +4,9 @@
 package main
 
 import (
-	_ "github.com/sdhealth/rclone/backend/all" // import all backends
-	"github.com/sdhealth/rclone/cmd"
-	_ "github.com/sdhealth/rclone/cmd/all" // import all commands
+	_ "github.com/rclone/rclone/backend/all" // import all backends
+	"github.com/rclone/rclone/cmd"
+	_ "github.com/rclone/rclone/cmd/all" // import all commands
 )
 
 func main() {

@@ -12,8 +12,8 @@ import (
 
 	"github.com/jzelinskie/whirlpool"
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/dropbox/dbhash"
-	"github.com/sdhealth/rclone/backend/onedrive/quickxorhash"
+	"github.com/rclone/rclone/backend/dropbox/dbhash"
+	"github.com/rclone/rclone/backend/onedrive/quickxorhash"
 )
 
 // Type indicates a standard hashing algorithm

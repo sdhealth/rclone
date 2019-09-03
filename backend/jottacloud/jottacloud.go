@@ -19,20 +19,20 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/jottacloud/api"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/accounting"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/fshttp"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/walk"
-	"github.com/sdhealth/rclone/lib/oauthutil"
-	"github.com/sdhealth/rclone/lib/pacer"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/backend/jottacloud/api"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/accounting"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/walk"
+	"github.com/rclone/rclone/lib/oauthutil"
+	"github.com/rclone/rclone/lib/pacer"
+	"github.com/rclone/rclone/lib/rest"
 	"golang.org/x/oauth2"
 )
 
@@ -90,7 +90,7 @@ func init() {
 			if config.Confirm() {
 				deviceRegistration, err := registerDevice(srv)
 				if err != nil {
-					log.Panicf("Failed to register device: %v", err)
+					log.Fatalf("Failed to register device: %v", err)
 				}
 
 				m.Set(configClientID, deviceRegistration.ClientID)
@@ -115,18 +115,18 @@ func init() {
 
 			token, err := doAuth(srv, username, password)
 			if err != nil {
-				log.Panicf("Failed to get oauth token: %s", err)
+				log.Fatalf("Failed to get oauth token: %s", err)
 			}
 			err = oauthutil.PutToken(name, m, &token, true)
 			if err != nil {
-				log.Panicf("Error while saving token: %s", err)
+				log.Fatalf("Error while saving token: %s", err)
 			}
 
 			fmt.Printf("\nDo you want to use a non standard device/mountpoint e.g. for accessing files uploaded using the official Jottacloud client?\n\n")
 			if config.Confirm() {
 				oAuthClient, _, err := oauthutil.NewClient(name, m, oauthConfig)
 				if err != nil {
-					log.Panicf("Failed to load oAuthClient: %s", err)
+					log.Fatalf("Failed to load oAuthClient: %s", err)
 				}
 
 				srv = rest.NewClient(oAuthClient).SetRoot(rootURL)
@@ -134,7 +134,7 @@ func init() {
 
 				device, mountpoint, err := setupMountpoint(srv, apiSrv)
 				if err != nil {
-					log.Panicf("Failed to setup mountpoint: %s", err)
+					log.Fatalf("Failed to setup mountpoint: %s", err)
 				}
 				m.Set(configDevice, device)
 				m.Set(configMountpoint, mountpoint)

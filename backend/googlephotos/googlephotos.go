@@ -19,20 +19,20 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/backend/googlephotos/api"
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/config"
-	"github.com/sdhealth/rclone/fs/config/configmap"
-	"github.com/sdhealth/rclone/fs/config/configstruct"
-	"github.com/sdhealth/rclone/fs/config/obscure"
-	"github.com/sdhealth/rclone/fs/dirtree"
-	"github.com/sdhealth/rclone/fs/fserrors"
-	"github.com/sdhealth/rclone/fs/fshttp"
-	"github.com/sdhealth/rclone/fs/hash"
-	"github.com/sdhealth/rclone/fs/log"
-	"github.com/sdhealth/rclone/lib/oauthutil"
-	"github.com/sdhealth/rclone/lib/pacer"
-	"github.com/sdhealth/rclone/lib/rest"
+	"github.com/rclone/rclone/backend/googlephotos/api"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/config"
+	"github.com/rclone/rclone/fs/config/configmap"
+	"github.com/rclone/rclone/fs/config/configstruct"
+	"github.com/rclone/rclone/fs/config/obscure"
+	"github.com/rclone/rclone/fs/dirtree"
+	"github.com/rclone/rclone/fs/fserrors"
+	"github.com/rclone/rclone/fs/fshttp"
+	"github.com/rclone/rclone/fs/hash"
+	"github.com/rclone/rclone/fs/log"
+	"github.com/rclone/rclone/lib/oauthutil"
+	"github.com/rclone/rclone/lib/pacer"
+	"github.com/rclone/rclone/lib/rest"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
@@ -98,7 +98,7 @@ func init() {
 			// Do the oauth
 			err = oauthutil.Config("google photos", name, m, oauthConfig)
 			if err != nil {
-				golog.Panicf("Failed to configure token: %v", err)
+				golog.Fatalf("Failed to configure token: %v", err)
 			}
 
 			// Warn the user

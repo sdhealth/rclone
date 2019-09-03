@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/sdhealth/rclone/fs"
-	"github.com/sdhealth/rclone/fs/operations"
+	"github.com/rclone/rclone/fs"
+	"github.com/rclone/rclone/fs/operations"
 )
 
 // WriteFileHandle is an open for write handle on a File

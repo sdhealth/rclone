@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sdhealth/rclone/fs"
+	"github.com/rclone/rclone/fs"
 	"golang.org/x/sync/errgroup"
 )
 
