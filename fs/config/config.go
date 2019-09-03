@@ -26,16 +26,16 @@ import (
 	"github.com/Unknwon/goconfig"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/accounting"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/config/obscure"
-	"github.com/rclone/rclone/fs/driveletter"
-	"github.com/rclone/rclone/fs/fshttp"
-	"github.com/rclone/rclone/fs/fspath"
-	"github.com/rclone/rclone/fs/rc"
-	"github.com/rclone/rclone/lib/random"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/accounting"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/config/obscure"
+	"github.com/sdhealth/rclone/fs/driveletter"
+	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/sdhealth/rclone/fs/fspath"
+	"github.com/sdhealth/rclone/fs/rc"
+	"github.com/sdhealth/rclone/lib/random"
 	"golang.org/x/crypto/nacl/secretbox"
 	"golang.org/x/text/unicode/norm"
 )
@@ -209,7 +209,7 @@ func LoadConfig() {
 		fs.Logf(nil, "Config file %q not found - using defaults", ConfigPath)
 		configFile, _ = goconfig.LoadFromReader(&bytes.Buffer{})
 	} else if err != nil {
-		log.Fatalf("Failed to load config file %q: %v", ConfigPath, err)
+		log.Panicf("Failed to load config file %q: %v", ConfigPath, err)
 	} else {
 		fs.Debugf(nil, "Using config file from %q", ConfigPath)
 	}
@@ -288,13 +288,13 @@ func loadConfigFile() (*goconfig.ConfigFile, error) {
 			if err != nil {
 				errRemove := os.Remove(envKeyFile)
 				if errRemove != nil {
-					log.Fatalf("unable to read obscured config key and unable to delete the temp file: %v", err)
+					log.Panicf("unable to read obscured config key and unable to delete the temp file: %v", err)
 				}
-				log.Fatalf("unable to read obscured config key: %v", err)
+				log.Panicf("unable to read obscured config key: %v", err)
 			}
 			errRemove := os.Remove(envKeyFile)
 			if errRemove != nil {
-				log.Fatalf("unable to delete temp file with configKey: %v", err)
+				log.Panicf("unable to delete temp file with configKey: %v", err)
 			}
 			configKey = []byte(obscure.MustReveal(string(obscuredKey)))
 			fs.Debugf(nil, "using _RCLONE_CONFIG_KEY_FILE for configKey")
@@ -407,32 +407,32 @@ func setConfigPassword(password string) error {
 	if PassConfigKeyForDaemonization {
 		tempFile, err := ioutil.TempFile("", "rclone")
 		if err != nil {
-			log.Fatalf("cannot create temp file to store configKey: %v", err)
+			log.Panicf("cannot create temp file to store configKey: %v", err)
 		}
 		_, err = tempFile.WriteString(obscure.MustObscure(string(configKey)))
 		if err != nil {
 			errRemove := os.Remove(tempFile.Name())
 			if errRemove != nil {
-				log.Fatalf("error writing configKey to temp file and also error deleting it: %v", err)
+				log.Panicf("error writing configKey to temp file and also error deleting it: %v", err)
 			}
-			log.Fatalf("error writing configKey to temp file: %v", err)
+			log.Panicf("error writing configKey to temp file: %v", err)
 		}
 		err = tempFile.Close()
 		if err != nil {
 			errRemove := os.Remove(tempFile.Name())
 			if errRemove != nil {
-				log.Fatalf("error closing temp file with configKey and also error deleting it: %v", err)
+				log.Panicf("error closing temp file with configKey and also error deleting it: %v", err)
 			}
-			log.Fatalf("error closing temp file with configKey: %v", err)
+			log.Panicf("error closing temp file with configKey: %v", err)
 		}
 		fs.Debugf(nil, "saving configKey to temp file")
 		err = os.Setenv("_RCLONE_CONFIG_KEY_FILE", tempFile.Name())
 		if err != nil {
 			errRemove := os.Remove(tempFile.Name())
 			if errRemove != nil {
-				log.Fatalf("unable to set environment variable _RCLONE_CONFIG_KEY_FILE and unable to delete the temp file: %v", err)
+				log.Panicf("unable to set environment variable _RCLONE_CONFIG_KEY_FILE and unable to delete the temp file: %v", err)
 			}
-			log.Fatalf("unable to set environment variable _RCLONE_CONFIG_KEY_FILE: %v", err)
+			log.Panicf("unable to set environment variable _RCLONE_CONFIG_KEY_FILE: %v", err)
 		}
 	}
 	return nil
@@ -549,7 +549,7 @@ func SaveConfig() {
 		waitingTimeMs := mathrand.Intn(1000)
 		time.Sleep(time.Duration(waitingTimeMs) * time.Millisecond)
 	}
-	log.Fatalf("Failed to save config after %d tries: %v", fs.Config.LowLevelRetries, err)
+	log.Panicf("Failed to save config after %d tries: %v", fs.Config.LowLevelRetries, err)
 
 	return
 }
@@ -619,7 +619,7 @@ var ReadLine = func() string {
 	buf := bufio.NewReader(os.Stdin)
 	line, err := buf.ReadString('\n')
 	if err != nil {
-		log.Fatalf("Failed to read line: %v", err)
+		log.Panicf("Failed to read line: %v", err)
 	}
 	return strings.TrimSpace(line)
 }
@@ -802,7 +802,7 @@ func OkRemote(name string) bool {
 func MustFindByName(name string) *fs.RegInfo {
 	fsType := FileGet(name, "type")
 	if fsType == "" {
-		log.Fatalf("Couldn't find type of fs for %q", name)
+		log.Panicf("Couldn't find type of fs for %q", name)
 	}
 	return fs.MustFind(fsType)
 }
@@ -867,7 +867,7 @@ func ChooseOption(o *fs.Option, name string) string {
 				bits := ChooseNumber("Bits", 64, 1024)
 				password, err = Password(bits)
 				if err != nil {
-					log.Fatalf("Failed to make password: %v", err)
+					log.Panicf("Failed to make password: %v", err)
 				}
 				fmt.Printf("Your password is: %s\n", password)
 				fmt.Printf("Use this password? Please note that an obscured version of this \npassword (and not the " +
@@ -1183,7 +1183,7 @@ func ShowConfigLocation() {
 func ShowConfig() {
 	var buf bytes.Buffer
 	if err := goconfig.SaveConfigData(getConfigData(), &buf); err != nil {
-		log.Fatalf("Failed to serialize config: %v", err)
+		log.Panicf("Failed to serialize config: %v", err)
 	}
 	str := buf.String()
 	if str == "" {
@@ -1278,12 +1278,12 @@ func Authorize(args []string) {
 	switch len(args) {
 	case 1, 3:
 	default:
-		log.Fatalf("Invalid number of arguments: %d", len(args))
+		log.Panicf("Invalid number of arguments: %d", len(args))
 	}
 	newType := args[0]
 	f := fs.MustFind(newType)
 	if f.Config == nil {
-		log.Fatalf("Can't authorize fs %q", newType)
+		log.Panicf("Can't authorize fs %q", newType)
 	}
 	// Name used for temporary fs
 	name := "**temp-fs**"

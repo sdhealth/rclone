@@ -14,17 +14,17 @@ import (
 
 	"github.com/ncw/swift"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/fshttp"
-	"github.com/rclone/rclone/fs/hash"
-	"github.com/rclone/rclone/fs/operations"
-	"github.com/rclone/rclone/fs/walk"
-	"github.com/rclone/rclone/lib/bucket"
-	"github.com/rclone/rclone/lib/pacer"
-	"github.com/rclone/rclone/lib/readers"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/sdhealth/rclone/fs/operations"
+	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/sdhealth/rclone/lib/bucket"
+	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/sdhealth/rclone/lib/readers"
 )
 
 // Constants

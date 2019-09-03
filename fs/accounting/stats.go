@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/rc"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/rc"
 )
 
 // StatsInfo accounts all transfers

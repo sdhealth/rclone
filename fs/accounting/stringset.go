@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/rclone/rclone/fs"
+	"github.com/sdhealth/rclone/fs"
 )
 
 // stringSet holds a set of strings

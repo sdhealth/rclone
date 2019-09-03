@@ -15,14 +15,14 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/putdotio/go-putio/putio"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/hash"
-	"github.com/rclone/rclone/lib/dircache"
-	"github.com/rclone/rclone/lib/oauthutil"
-	"github.com/rclone/rclone/lib/pacer"
-	"github.com/rclone/rclone/lib/readers"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/sdhealth/rclone/lib/dircache"
+	"github.com/sdhealth/rclone/lib/oauthutil"
+	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/sdhealth/rclone/lib/readers"
 )
 
 // Fs represents a remote Putio server
@@ -117,7 +117,7 @@ func NewFs(name, root string, m configmap.Mapper) (f fs.Fs, err error) {
 		}
 		// XXX: update the old f here instead of returning tempF, since
 		// `features` were already filled with functions having *f as a receiver.
-		// See https://github.com/rclone/rclone/issues/2182
+		// See https://github.com/sdhealth/rclone/issues/2182
 		p.dirCache = tempF.dirCache
 		p.root = tempF.root
 		return p, fs.ErrorIsFile

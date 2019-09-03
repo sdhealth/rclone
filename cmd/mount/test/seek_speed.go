@@ -29,13 +29,13 @@ func randomSeekTest(size int64, in *os.File, name string) {
 
 	_, err := in.Seek(start, io.SeekStart)
 	if err != nil {
-		log.Fatalf("Seek failed on %q: %v", name, err)
+		log.Panicf("Seek failed on %q: %v", name, err)
 	}
 
 	buf := make([]byte, blockSize)
 	_, err = io.ReadFull(in, buf)
 	if err != nil {
-		log.Fatalf("Read failed on %q: %v", name, err)
+		log.Panicf("Read failed on %q: %v", name, err)
 	}
 
 	log.Printf("Reading %d from %d took %v ", blockSize, start, time.Since(startTime))
@@ -45,7 +45,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) != 1 {
-		log.Fatalf("Require 1 file as argument")
+		log.Panicf("Require 1 file as argument")
 	}
 	rand.Seed(*randSeed)
 
@@ -53,13 +53,13 @@ func main() {
 	openStart := time.Now()
 	in, err := os.Open(name)
 	if err != nil {
-		log.Fatalf("Couldn't open %q: %v", name, err)
+		log.Panicf("Couldn't open %q: %v", name, err)
 	}
 	log.Printf("File Open took %v", time.Since(openStart))
 
 	fi, err := in.Stat()
 	if err != nil {
-		log.Fatalf("Couldn't stat %q: %v", name, err)
+		log.Panicf("Couldn't stat %q: %v", name, err)
 	}
 
 	start := time.Now()
@@ -71,6 +71,6 @@ func main() {
 
 	err = in.Close()
 	if err != nil {
-		log.Fatalf("Error closing %q: %v", name, err)
+		log.Panicf("Error closing %q: %v", name, err)
 	}
 }

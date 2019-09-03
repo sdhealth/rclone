@@ -48,7 +48,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) != 1 {
-		log.Fatalf("Syntax: %s <test_to_run>", os.Args[0])
+		log.Panicf("Syntax: %s <test_to_run>", os.Args[0])
 	}
 	packageToTest := args[0]
 	testNames := findTests(packageToTest)

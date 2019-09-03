@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rclone/rclone/fs"
+	"github.com/sdhealth/rclone/fs"
 	"golang.org/x/net/publicsuffix"
 	"golang.org/x/time/rate"
 )
@@ -148,11 +148,11 @@ func NewTransport(ci *fs.ConfigInfo) http.RoundTripper {
 		// Load client certs
 		if ci.ClientCert != "" || ci.ClientKey != "" {
 			if ci.ClientCert == "" || ci.ClientKey == "" {
-				log.Fatalf("Both --client-cert and --client-key must be set")
+				log.Panicf("Both --client-cert and --client-key must be set")
 			}
 			cert, err := tls.LoadX509KeyPair(ci.ClientCert, ci.ClientKey)
 			if err != nil {
-				log.Fatalf("Failed to load --client-cert/--client-key pair: %v", err)
+				log.Panicf("Failed to load --client-cert/--client-key pair: %v", err)
 			}
 			t.TLSClientConfig.Certificates = []tls.Certificate{cert}
 			t.TLSClientConfig.BuildNameToCertificate()
@@ -162,12 +162,12 @@ func NewTransport(ci *fs.ConfigInfo) http.RoundTripper {
 		if ci.CaCert != "" {
 			caCert, err := ioutil.ReadFile(ci.CaCert)
 			if err != nil {
-				log.Fatalf("Failed to read --ca-cert: %v", err)
+				log.Panicf("Failed to read --ca-cert: %v", err)
 			}
 			caCertPool := x509.NewCertPool()
 			ok := caCertPool.AppendCertsFromPEM(caCert)
 			if !ok {
-				log.Fatalf("Failed to add certificates from --ca-cert")
+				log.Panicf("Failed to add certificates from --ca-cert")
 			}
 			t.TLSClientConfig.RootCAs = caCertPool
 		}

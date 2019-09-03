@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/lib/rest"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/lib/rest"
 )
 
 // retryErrorCodes is a slice of error codes that we will retry

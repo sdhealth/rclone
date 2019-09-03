@@ -10,9 +10,9 @@ import (
 	"bazil.org/fuse"
 	fusefs "bazil.org/fuse/fs"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/cmd/mountlib"
-	"github.com/rclone/rclone/fs/log"
-	"github.com/rclone/rclone/vfs"
+	"github.com/sdhealth/rclone/cmd/mountlib"
+	"github.com/sdhealth/rclone/fs/log"
+	"github.com/sdhealth/rclone/vfs"
 )
 
 // Dir represents a directory entry

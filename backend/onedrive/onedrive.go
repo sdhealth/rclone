@@ -15,22 +15,22 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rclone/rclone/lib/atexit"
+	"github.com/sdhealth/rclone/lib/atexit"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/backend/onedrive/api"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/config/obscure"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/hash"
-	"github.com/rclone/rclone/lib/dircache"
-	"github.com/rclone/rclone/lib/oauthutil"
-	"github.com/rclone/rclone/lib/pacer"
-	"github.com/rclone/rclone/lib/readers"
-	"github.com/rclone/rclone/lib/rest"
+	"github.com/sdhealth/rclone/backend/onedrive/api"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/config/obscure"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/sdhealth/rclone/lib/dircache"
+	"github.com/sdhealth/rclone/lib/oauthutil"
+	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/sdhealth/rclone/lib/readers"
+	"github.com/sdhealth/rclone/lib/rest"
 	"golang.org/x/oauth2"
 )
 
@@ -74,7 +74,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("onedrive", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 				return
 			}
 
@@ -103,7 +103,7 @@ func init() {
 
 			oAuthClient, _, err := oauthutil.NewClient(name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure OneDrive: %v", err)
+				log.Panicf("Failed to configure OneDrive: %v", err)
 			}
 			srv := rest.NewClient(oAuthClient)
 
@@ -145,11 +145,11 @@ func init() {
 				sites := siteResponse{}
 				_, err := srv.CallJSON(&opts, nil, &sites)
 				if err != nil {
-					log.Fatalf("Failed to query available sites: %v", err)
+					log.Panicf("Failed to query available sites: %v", err)
 				}
 
 				if len(sites.Sites) == 0 {
-					log.Fatalf("Search for '%s' returned no results", searchTerm)
+					log.Panicf("Search for '%s' returned no results", searchTerm)
 				} else {
 					fmt.Printf("Found %d sites, please select the one you want to use:\n", len(sites.Sites))
 					for index, site := range sites.Sites {
@@ -174,11 +174,11 @@ func init() {
 				drives := drivesResponse{}
 				_, err := srv.CallJSON(&opts, nil, &drives)
 				if err != nil {
-					log.Fatalf("Failed to query available drives: %v", err)
+					log.Panicf("Failed to query available drives: %v", err)
 				}
 
 				if len(drives.Drives) == 0 {
-					log.Fatalf("No drives found")
+					log.Panicf("No drives found")
 				} else {
 					fmt.Printf("Found %d drives, please select the one you want to use:\n", len(drives.Drives))
 					for index, drive := range drives.Drives {
@@ -196,13 +196,13 @@ func init() {
 			var rootItem api.Item
 			_, err = srv.CallJSON(&opts, nil, &rootItem)
 			if err != nil {
-				log.Fatalf("Failed to query root for drive %s: %v", finalDriveID, err)
+				log.Panicf("Failed to query root for drive %s: %v", finalDriveID, err)
 			}
 
 			fmt.Printf("Found drive '%s' of type '%s', URL: %s\nIs that okay?\n", rootItem.Name, rootItem.ParentReference.DriveType, rootItem.WebURL)
 			// This does not work, YET :)
 			if !config.ConfirmWithConfig(m, "config_drive_ok", true) {
-				log.Fatalf("Cancelled by user")
+				log.Panicf("Cancelled by user")
 			}
 
 			m.Set(configDriveID, finalDriveID)
@@ -541,7 +541,7 @@ func NewFs(name, root string, m configmap.Mapper) (fs.Fs, error) {
 		}
 		// XXX: update the old f here instead of returning tempF, since
 		// `features` were already filled with functions having *f as a receiver.
-		// See https://github.com/rclone/rclone/issues/2182
+		// See https://github.com/sdhealth/rclone/issues/2182
 		f.dirCache = tempF.dirCache
 		f.root = tempF.root
 		// return an error with an fs which points to the parent

@@ -11,13 +11,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/rclone/rclone/cmd"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/rc/rcflags"
-	"github.com/rclone/rclone/fs/rc/rcserver"
-	"github.com/rclone/rclone/lib/errors"
-	"github.com/rclone/rclone/lib/random"
+	"github.com/sdhealth/rclone/cmd"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/rc/rcflags"
+	"github.com/sdhealth/rclone/fs/rc/rcserver"
+	"github.com/sdhealth/rclone/lib/errors"
+	"github.com/sdhealth/rclone/lib/random"
 	"github.com/spf13/cobra"
 )
 
@@ -42,7 +42,7 @@ See the [rc documentation](/rc/) for more info on the rc flags.
 	Run: func(command *cobra.Command, args []string) {
 		cmd.CheckArgs(0, 1, command, args)
 		if rcflags.Opt.Enabled {
-			log.Fatalf("Don't supply --rc flag when using rcd")
+			log.Panicf("Don't supply --rc flag when using rcd")
 		}
 
 		// Start the rc
@@ -53,7 +53,7 @@ See the [rc documentation](/rc/) for more info on the rc flags.
 
 		if rcflags.Opt.WebUI {
 			if err := checkRelease(rcflags.Opt.WebGUIUpdate); err != nil {
-				log.Fatalf("Error while fetching the latest release of rclone-webui-react %v", err)
+				log.Panicf("Error while fetching the latest release of rclone-webui-react %v", err)
 			}
 			if rcflags.Opt.NoAuth {
 				rcflags.Opt.NoAuth = false
@@ -66,7 +66,7 @@ See the [rc documentation](/rc/) for more info on the rc flags.
 			if rcflags.Opt.HTTPOptions.BasicPass == "" {
 				randomPass, err := random.Password(128)
 				if err != nil {
-					log.Fatalf("Failed to make password: %v", err)
+					log.Panicf("Failed to make password: %v", err)
 				}
 				rcflags.Opt.HTTPOptions.BasicPass = randomPass
 				fs.Infof(nil, "No password specified. Using random password: %s \n", randomPass)
@@ -76,7 +76,7 @@ See the [rc documentation](/rc/) for more info on the rc flags.
 
 		s, err := rcserver.Start(&rcflags.Opt)
 		if err != nil {
-			log.Fatalf("Failed to start remote control: %v", err)
+			log.Panicf("Failed to start remote control: %v", err)
 		}
 		if s == nil {
 			log.Fatal("rc server not configured")

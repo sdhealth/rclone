@@ -18,11 +18,11 @@ import (
 	"testing"
 	"time"
 
-	_ "github.com/rclone/rclone/backend/all" // import all the backends
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/walk"
-	"github.com/rclone/rclone/fstest"
-	"github.com/rclone/rclone/vfs"
+	_ "github.com/sdhealth/rclone/backend/all" // import all the backends
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/sdhealth/rclone/fstest"
+	"github.com/sdhealth/rclone/vfs"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -117,12 +117,12 @@ func newRun() *Run {
 	var err error
 	r.fremote, r.fremoteName, r.cleanRemote, err = fstest.RandomRemote()
 	if err != nil {
-		log.Fatalf("Failed to open remote %q: %v", *fstest.RemoteName, err)
+		log.Panicf("Failed to open remote %q: %v", *fstest.RemoteName, err)
 	}
 
 	err = r.fremote.Mkdir(context.Background(), "")
 	if err != nil {
-		log.Fatalf("Failed to open mkdir %q: %v", *fstest.RemoteName, err)
+		log.Panicf("Failed to open mkdir %q: %v", *fstest.RemoteName, err)
 	}
 
 	r.mountPath = findMountPath()
@@ -136,7 +136,7 @@ func findMountPath() string {
 	if runtime.GOOS != "windows" {
 		mountPath, err := ioutil.TempDir("", "rclonefs-mount")
 		if err != nil {
-			log.Fatalf("Failed to create mount dir: %v", err)
+			log.Panicf("Failed to create mount dir: %v", err)
 		}
 		return mountPath
 	}
@@ -150,7 +150,7 @@ func findMountPath() string {
 			goto found
 		}
 	}
-	log.Fatalf("Couldn't find free drive letter for test")
+	log.Panicf("Couldn't find free drive letter for test")
 found:
 	return drive
 }
@@ -187,12 +187,12 @@ func (r *Run) umount() {
 		err = r.umountFn()
 	}
 	if err != nil {
-		log.Fatalf("signal to umount failed: %v", err)
+		log.Panicf("signal to umount failed: %v", err)
 	}
 	log.Printf("Waiting for umount")
 	err = <-r.umountResult
 	if err != nil {
-		log.Fatalf("umount failed: %v", err)
+		log.Panicf("umount failed: %v", err)
 	}
 
 	// Cleanup the VFS cache - umount has called Shutdown
@@ -214,7 +214,7 @@ func (r *Run) cacheMode(cacheMode vfs.CacheMode) {
 	r.cleanRemote()
 	err := r.fremote.Mkdir(context.Background(), "")
 	if err != nil {
-		log.Fatalf("Failed to open mkdir %q: %v", *fstest.RemoteName, err)
+		log.Panicf("Failed to open mkdir %q: %v", *fstest.RemoteName, err)
 	}
 	// Empty the cache
 	err = r.vfs.CleanUp()

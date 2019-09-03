@@ -3,8 +3,8 @@
 package rc
 
 import (
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/cache"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/cache"
 )
 
 // GetFsNamed gets a fs.Fs named fsName either from the cache or creates it afresh

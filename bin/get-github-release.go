@@ -27,7 +27,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rclone/rclone/lib/rest"
+	"github.com/sdhealth/rclone/lib/rest"
 	"golang.org/x/net/html"
 	"golang.org/x/sys/unix"
 )
@@ -180,7 +180,7 @@ func getAsset(project string, matchName *regexp.Regexp) (string, string) {
 	user, pass := os.Getenv("GITHUB_USER"), os.Getenv("GITHUB_TOKEN")
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		log.Fatalf("Failed to make http request %q: %v", url, err)
+		log.Panicf("Failed to make http request %q: %v", url, err)
 	}
 	if user != "" && pass != "" {
 		log.Printf("Fetching using GITHUB_USER and GITHUB_TOKEN")
@@ -188,20 +188,20 @@ func getAsset(project string, matchName *regexp.Regexp) (string, string) {
 	}
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		log.Fatalf("Failed to fetch release info %q: %v", url, err)
+		log.Panicf("Failed to fetch release info %q: %v", url, err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Error: %s", readBody(resp.Body))
-		log.Fatalf("Bad status %d when fetching %q release info: %s", resp.StatusCode, url, resp.Status)
+		log.Panicf("Bad status %d when fetching %q release info: %s", resp.StatusCode, url, resp.Status)
 	}
 	var release Release
 	err = json.NewDecoder(resp.Body).Decode(&release)
 	if err != nil {
-		log.Fatalf("Failed to decode release info: %v", err)
+		log.Panicf("Failed to decode release info: %v", err)
 	}
 	err = resp.Body.Close()
 	if err != nil {
-		log.Fatalf("Failed to close body: %v", err)
+		log.Panicf("Failed to close body: %v", err)
 	}
 
 	for _, asset := range release.Assets {
@@ -210,7 +210,7 @@ func getAsset(project string, matchName *regexp.Regexp) (string, string) {
 			return asset.BrowserDownloadURL, asset.Name
 		}
 	}
-	log.Fatalf("Didn't find asset in info")
+	log.Panicf("Didn't find asset in info")
 	return "", ""
 }
 
@@ -222,20 +222,20 @@ func getAssetFromReleasesPage(project string, matchName *regexp.Regexp) (assetUR
 	log.Printf("Fetching asset info for %q from %q", project, baseURL)
 	base, err := url.Parse(baseURL)
 	if err != nil {
-		log.Fatalf("URL Parse failed: %v", err)
+		log.Panicf("URL Parse failed: %v", err)
 	}
 	resp, err := http.Get(baseURL)
 	if err != nil {
-		log.Fatalf("Failed to fetch release info %q: %v", baseURL, err)
+		log.Panicf("Failed to fetch release info %q: %v", baseURL, err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Error: %s", readBody(resp.Body))
-		log.Fatalf("Bad status %d when fetching %q release info: %s", resp.StatusCode, baseURL, resp.Status)
+		log.Panicf("Bad status %d when fetching %q release info: %s", resp.StatusCode, baseURL, resp.Status)
 	}
 	doc, err := html.Parse(resp.Body)
 	if err != nil {
-		log.Fatalf("Failed to parse web page: %v", err)
+		log.Panicf("Failed to parse web page: %v", err)
 	}
 	var walk func(*html.Node)
 	walk = func(n *html.Node) {
@@ -260,7 +260,7 @@ func getAssetFromReleasesPage(project string, matchName *regexp.Regexp) (assetUR
 	}
 	walk(doc)
 	if assetName == "" || assetURL == "" {
-		log.Fatalf("Didn't find URL in page")
+		log.Panicf("Didn't find URL in page")
 	}
 	return assetURL, assetName
 }
@@ -287,30 +287,30 @@ func getFile(url, fileName string) {
 
 	out, err := os.Create(fileName)
 	if err != nil {
-		log.Fatalf("Failed to open %q: %v", fileName, err)
+		log.Panicf("Failed to open %q: %v", fileName, err)
 	}
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalf("Failed to fetch asset %q: %v", url, err)
+		log.Panicf("Failed to fetch asset %q: %v", url, err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Error: %s", readBody(resp.Body))
-		log.Fatalf("Bad status %d when fetching %q asset: %s", resp.StatusCode, url, resp.Status)
+		log.Panicf("Bad status %d when fetching %q asset: %s", resp.StatusCode, url, resp.Status)
 	}
 
 	n, err := io.Copy(out, resp.Body)
 	if err != nil {
-		log.Fatalf("Error while downloading: %v", err)
+		log.Panicf("Error while downloading: %v", err)
 	}
 
 	err = resp.Body.Close()
 	if err != nil {
-		log.Fatalf("Failed to close body: %v", err)
+		log.Panicf("Failed to close body: %v", err)
 	}
 	err = out.Close()
 	if err != nil {
-		log.Fatalf("Failed to close output file: %v", err)
+		log.Panicf("Failed to close output file: %v", err)
 	}
 
 	log.Printf("Downloaded %q (%d bytes)", fileName, n)
@@ -323,7 +323,7 @@ func run(args ...string) {
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	if err != nil {
-		log.Fatalf("Failed to run %v: %v", args, err)
+		log.Panicf("Failed to run %v: %v", args, err)
 	}
 }
 
@@ -331,12 +331,12 @@ func run(args ...string) {
 func untar(srcFile, fileName, extractDir string) {
 	f, err := os.Open(srcFile)
 	if err != nil {
-		log.Fatalf("Couldn't open tar: %v", err)
+		log.Panicf("Couldn't open tar: %v", err)
 	}
 	defer func() {
 		err := f.Close()
 		if err != nil {
-			log.Fatalf("Couldn't close tar: %v", err)
+			log.Panicf("Couldn't close tar: %v", err)
 		}
 	}()
 
@@ -346,7 +346,7 @@ func untar(srcFile, fileName, extractDir string) {
 	if srcExt == ".gz" || srcExt == ".tgz" {
 		gzf, err := gzip.NewReader(f)
 		if err != nil {
-			log.Fatalf("Couldn't open gzip: %v", err)
+			log.Panicf("Couldn't open gzip: %v", err)
 		}
 		in = gzf
 	}
@@ -359,7 +359,7 @@ func untar(srcFile, fileName, extractDir string) {
 			break
 		}
 		if err != nil {
-			log.Fatalf("Trouble reading tar file: %v", err)
+			log.Panicf("Trouble reading tar file: %v", err)
 		}
 		name := header.Name
 		switch header.Typeflag {
@@ -369,17 +369,17 @@ func untar(srcFile, fileName, extractDir string) {
 				outPath := filepath.Join(extractDir, fileName)
 				out, err := os.OpenFile(outPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0777)
 				if err != nil {
-					log.Fatalf("Couldn't open output file: %v", err)
+					log.Panicf("Couldn't open output file: %v", err)
 				}
 				defer func() {
 					err := out.Close()
 					if err != nil {
-						log.Fatalf("Couldn't close output: %v", err)
+						log.Panicf("Couldn't close output: %v", err)
 					}
 				}()
 				n, err := io.Copy(out, tarReader)
 				if err != nil {
-					log.Fatalf("Couldn't write output file: %v", err)
+					log.Panicf("Couldn't write output file: %v", err)
 				}
 				log.Printf("Wrote %s (%d bytes) as %q", fileName, n, outPath)
 			}
@@ -391,15 +391,15 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) != 2 {
-		log.Fatalf("Syntax: %s <user/project> <name reg exp>", os.Args[0])
+		log.Panicf("Syntax: %s <user/project> <name reg exp>", os.Args[0])
 	}
 	project, nameRe := args[0], args[1]
 	if !matchProject.MatchString(project) {
-		log.Fatalf("Project %q must be in form user/project", project)
+		log.Panicf("Project %q must be in form user/project", project)
 	}
 	matchName, err := regexp.Compile(nameRe)
 	if err != nil {
-		log.Fatalf("Invalid regexp for name %q: %v", nameRe, err)
+		log.Panicf("Invalid regexp for name %q: %v", nameRe, err)
 	}
 
 	var assetURL, assetName string
@@ -417,7 +417,7 @@ func main() {
 		log.Printf("Installed %s", fileName)
 	} else if *extract != "" {
 		if *bindir == "" {
-			log.Fatalf("Need to set -bindir")
+			log.Panicf("Need to set -bindir")
 		}
 		log.Printf("Unpacking %s from %s and installing into %s", *extract, fileName, *bindir)
 		untar(fileName, *extract, *bindir+"/")

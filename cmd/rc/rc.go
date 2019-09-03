@@ -11,10 +11,10 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/cmd"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/fshttp"
-	"github.com/rclone/rclone/fs/rc"
+	"github.com/sdhealth/rclone/cmd"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/sdhealth/rclone/fs/rc"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )

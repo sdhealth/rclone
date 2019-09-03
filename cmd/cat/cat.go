@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/rclone/rclone/cmd"
-	"github.com/rclone/rclone/fs/operations"
+	"github.com/sdhealth/rclone/cmd"
+	"github.com/sdhealth/rclone/fs/operations"
 	"github.com/spf13/cobra"
 )
 
@@ -58,7 +58,7 @@ Note that if offset is negative it will count from the end, so
 		usedHead := head > 0
 		usedTail := tail > 0
 		if usedHead && usedTail || usedHead && usedOffset || usedTail && usedOffset {
-			log.Fatalf("Can only use one of  --head, --tail or --offset with --count")
+			log.Panicf("Can only use one of  --head, --tail or --offset with --count")
 		}
 		if head > 0 {
 			offset = 0

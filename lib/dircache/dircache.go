@@ -12,7 +12,7 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
+	"github.com/sdhealth/rclone/fs"
 )
 
 // DirCache caches paths to directory IDs and vice versa
@@ -302,7 +302,7 @@ func (dc *DirCache) RootID() string {
 	dc.mu.Lock()
 	defer dc.mu.Unlock()
 	if !dc.foundRoot {
-		log.Fatalf("Internal Error: RootID() called before FindRoot")
+		log.Panicf("Internal Error: RootID() called before FindRoot")
 	}
 	return dc.rootID
 }

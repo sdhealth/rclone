@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/lib/pool"
-	"github.com/rclone/rclone/lib/readers"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/lib/pool"
+	"github.com/sdhealth/rclone/lib/readers"
 )
 
 const (

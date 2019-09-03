@@ -9,12 +9,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/rclone/rclone/vfs"
+	"github.com/sdhealth/rclone/vfs"
 
-	_ "github.com/rclone/rclone/backend/local"
-	"github.com/rclone/rclone/cmd/serve/dlna/dlnaflags"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
+	_ "github.com/sdhealth/rclone/backend/local"
+	"github.com/sdhealth/rclone/cmd/serve/dlna/dlnaflags"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

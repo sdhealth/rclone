@@ -11,7 +11,7 @@ package cmount
 import (
 	"testing"
 
-	"github.com/rclone/rclone/cmd/mountlib/mounttest"
+	"github.com/sdhealth/rclone/cmd/mountlib/mounttest"
 )
 
 func TestMount(t *testing.T) {

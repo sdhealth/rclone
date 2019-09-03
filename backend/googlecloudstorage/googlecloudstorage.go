@@ -27,18 +27,18 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/config/obscure"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/fshttp"
-	"github.com/rclone/rclone/fs/hash"
-	"github.com/rclone/rclone/fs/walk"
-	"github.com/rclone/rclone/lib/bucket"
-	"github.com/rclone/rclone/lib/oauthutil"
-	"github.com/rclone/rclone/lib/pacer"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/config/obscure"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/sdhealth/rclone/fs/walk"
+	"github.com/sdhealth/rclone/lib/bucket"
+	"github.com/sdhealth/rclone/lib/oauthutil"
+	"github.com/sdhealth/rclone/lib/pacer"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/googleapi"
@@ -83,7 +83,7 @@ func init() {
 			}
 			err := oauthutil.Config("google cloud storage", name, m, storageConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: []fs.Option{{

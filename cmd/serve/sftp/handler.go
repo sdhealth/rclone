@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/pkg/sftp"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/vfs"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/vfs"
 )
 
 // vfsHandler converts the VFS to be served by SFTP

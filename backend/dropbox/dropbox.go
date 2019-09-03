@@ -39,16 +39,16 @@ import (
 	"github.com/dropbox/dropbox-sdk-go-unofficial/dropbox/team"
 	"github.com/dropbox/dropbox-sdk-go-unofficial/dropbox/users"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/config/obscure"
-	"github.com/rclone/rclone/fs/fserrors"
-	"github.com/rclone/rclone/fs/hash"
-	"github.com/rclone/rclone/lib/oauthutil"
-	"github.com/rclone/rclone/lib/pacer"
-	"github.com/rclone/rclone/lib/readers"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/config/obscure"
+	"github.com/sdhealth/rclone/fs/fserrors"
+	"github.com/sdhealth/rclone/fs/hash"
+	"github.com/sdhealth/rclone/lib/oauthutil"
+	"github.com/sdhealth/rclone/lib/pacer"
+	"github.com/sdhealth/rclone/lib/readers"
 	"golang.org/x/oauth2"
 )
 
@@ -113,7 +113,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.ConfigNoOffline("dropbox", name, m, dropboxConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: []fs.Option{{

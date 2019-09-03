@@ -10,7 +10,7 @@ import (
 	"path"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
+	"github.com/sdhealth/rclone/fs"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -110,7 +110,7 @@ func NewConfig(configFile string) (*Config, error) {
 	}
 	// d, err = yaml.Marshal(&config)
 	// if err != nil {
-	// 	log.Fatalf("error: %v", err)
+	// 	log.Panicf("error: %v", err)
 	// }
 	// fmt.Printf("--- m dump:\n%s\n\n", string(d))
 	return config, nil
@@ -145,7 +145,7 @@ func (c *Config) filterBackendsByRemotes(remotes []string) {
 			// Lookup which backend
 			fsInfo, _, _, _, err := fs.ConfigFs(name)
 			if err != nil {
-				log.Fatalf("couldn't find remote %q: %v", name, err)
+				log.Panicf("couldn't find remote %q: %v", name, err)
 			}
 			newBackends = append(newBackends, Backend{Backend: fsInfo.FileName(), Remote: name})
 		}

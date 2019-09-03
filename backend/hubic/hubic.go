@@ -17,14 +17,14 @@ import (
 
 	swiftLib "github.com/ncw/swift"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/backend/swift"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/configstruct"
-	"github.com/rclone/rclone/fs/config/obscure"
-	"github.com/rclone/rclone/fs/fshttp"
-	"github.com/rclone/rclone/lib/oauthutil"
+	"github.com/sdhealth/rclone/backend/swift"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/configstruct"
+	"github.com/sdhealth/rclone/fs/config/obscure"
+	"github.com/sdhealth/rclone/fs/fshttp"
+	"github.com/sdhealth/rclone/lib/oauthutil"
 	"golang.org/x/oauth2"
 )
 
@@ -59,7 +59,7 @@ func init() {
 		Config: func(name string, m configmap.Mapper) {
 			err := oauthutil.Config("hubic", name, m, oauthConfig)
 			if err != nil {
-				log.Fatalf("Failed to configure token: %v", err)
+				log.Panicf("Failed to configure token: %v", err)
 			}
 		},
 		Options: append([]fs.Option{{

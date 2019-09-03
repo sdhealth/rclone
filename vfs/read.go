@@ -7,10 +7,10 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/accounting"
-	"github.com/rclone/rclone/fs/chunkedreader"
-	"github.com/rclone/rclone/fs/hash"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/accounting"
+	"github.com/sdhealth/rclone/fs/chunkedreader"
+	"github.com/sdhealth/rclone/fs/hash"
 )
 
 // ReadFileHandle is an open for read file handle on a File

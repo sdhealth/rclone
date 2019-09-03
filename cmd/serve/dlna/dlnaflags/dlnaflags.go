@@ -1,8 +1,8 @@
 package dlnaflags
 
 import (
-	"github.com/rclone/rclone/fs/config/flags"
-	"github.com/rclone/rclone/fs/rc"
+	"github.com/sdhealth/rclone/fs/config/flags"
+	"github.com/sdhealth/rclone/fs/rc"
 	"github.com/spf13/pflag"
 )
 

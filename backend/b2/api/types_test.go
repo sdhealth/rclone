@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rclone/rclone/backend/b2/api"
-	"github.com/rclone/rclone/fstest"
+	"github.com/sdhealth/rclone/backend/b2/api"
+	"github.com/sdhealth/rclone/fstest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

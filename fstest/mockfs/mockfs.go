@@ -7,8 +7,8 @@ import (
 	"io"
 	"time"
 
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/hash"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/hash"
 )
 
 // Fs is a minimal mock Fs

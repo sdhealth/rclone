@@ -17,16 +17,16 @@ import (
 
 	ftp "github.com/goftp/server"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/cmd"
-	"github.com/rclone/rclone/cmd/serve/proxy"
-	"github.com/rclone/rclone/cmd/serve/proxy/proxyflags"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/accounting"
-	"github.com/rclone/rclone/fs/config/flags"
-	"github.com/rclone/rclone/fs/log"
-	"github.com/rclone/rclone/fs/rc"
-	"github.com/rclone/rclone/vfs"
-	"github.com/rclone/rclone/vfs/vfsflags"
+	"github.com/sdhealth/rclone/cmd"
+	"github.com/sdhealth/rclone/cmd/serve/proxy"
+	"github.com/sdhealth/rclone/cmd/serve/proxy/proxyflags"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/accounting"
+	"github.com/sdhealth/rclone/fs/config/flags"
+	"github.com/sdhealth/rclone/fs/log"
+	"github.com/sdhealth/rclone/fs/rc"
+	"github.com/sdhealth/rclone/vfs"
+	"github.com/sdhealth/rclone/vfs/vfsflags"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -210,8 +210,8 @@ func (l *Logger) PrintResponse(sessionID string, code int, message string) {
 // CheckPassword is called with the connection.
 func findID(callerName []byte) (string, error) {
 	// Dump the stack in this format
-	// github.com/rclone/rclone/vendor/github.com/goftp/server.(*Conn).Serve(0xc0000b2680)
-	// 	/home/ncw/go/src/github.com/rclone/rclone/vendor/github.com/goftp/server/conn.go:116 +0x11d
+	// github.com/sdhealth/rclone/vendor/github.com/goftp/server.(*Conn).Serve(0xc0000b2680)
+	// 	/home/ncw/go/src/github.com/sdhealth/rclone/vendor/github.com/goftp/server/conn.go:116 +0x11d
 	buf := make([]byte, 4096)
 	n := runtime.Stack(buf, false)
 	buf = buf[:n]

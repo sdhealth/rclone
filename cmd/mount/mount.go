@@ -14,11 +14,11 @@ import (
 	fusefs "bazil.org/fuse/fs"
 	"github.com/okzk/sdnotify"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/cmd/mountlib"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/lib/atexit"
-	"github.com/rclone/rclone/vfs"
-	"github.com/rclone/rclone/vfs/vfsflags"
+	"github.com/sdhealth/rclone/cmd/mountlib"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/lib/atexit"
+	"github.com/sdhealth/rclone/vfs"
+	"github.com/sdhealth/rclone/vfs/vfsflags"
 )
 
 func init() {

@@ -12,11 +12,11 @@ import (
 	"testing"
 
 	ftp "github.com/goftp/server"
-	_ "github.com/rclone/rclone/backend/local"
-	"github.com/rclone/rclone/cmd/serve/servetest"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/config/obscure"
+	_ "github.com/sdhealth/rclone/backend/local"
+	"github.com/sdhealth/rclone/cmd/serve/servetest"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/config/obscure"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

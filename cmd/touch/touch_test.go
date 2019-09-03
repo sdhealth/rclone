@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	_ "github.com/rclone/rclone/backend/local"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fstest"
+	_ "github.com/sdhealth/rclone/backend/local"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fstest"
 	"github.com/stretchr/testify/require"
 )
 

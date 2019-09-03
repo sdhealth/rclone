@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/dirtree"
-	"github.com/rclone/rclone/fs/list"
-	"github.com/rclone/rclone/fs/operations"
-	"github.com/rclone/rclone/fs/walk"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/dirtree"
+	"github.com/sdhealth/rclone/fs/list"
+	"github.com/sdhealth/rclone/fs/operations"
+	"github.com/sdhealth/rclone/fs/walk"
 )
 
 // Dir represents a directory entry

@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/rclone/rclone/fs"
+	"github.com/sdhealth/rclone/fs"
 )
 
 // pipe provides an unbounded channel like experience

@@ -23,19 +23,19 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/backend/cache"
-	"github.com/rclone/rclone/backend/crypt"
-	_ "github.com/rclone/rclone/backend/drive"
-	"github.com/rclone/rclone/backend/local"
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config"
-	"github.com/rclone/rclone/fs/config/configmap"
-	"github.com/rclone/rclone/fs/object"
-	"github.com/rclone/rclone/fs/rc"
-	"github.com/rclone/rclone/fstest"
-	"github.com/rclone/rclone/lib/random"
-	"github.com/rclone/rclone/vfs"
-	"github.com/rclone/rclone/vfs/vfsflags"
+	"github.com/sdhealth/rclone/backend/cache"
+	"github.com/sdhealth/rclone/backend/crypt"
+	_ "github.com/sdhealth/rclone/backend/drive"
+	"github.com/sdhealth/rclone/backend/local"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs/config/configmap"
+	"github.com/sdhealth/rclone/fs/object"
+	"github.com/sdhealth/rclone/fs/rc"
+	"github.com/sdhealth/rclone/fstest"
+	"github.com/sdhealth/rclone/lib/random"
+	"github.com/sdhealth/rclone/vfs"
+	"github.com/sdhealth/rclone/vfs/vfsflags"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -948,7 +948,7 @@ func newRun() *run {
 		if runtime.GOOS != "windows" {
 			r.mntDir, err = ioutil.TempDir("", "rclonecache-mount")
 			if err != nil {
-				log.Fatalf("Failed to create mount dir: %v", err)
+				log.Panicf("Failed to create mount dir: %v", err)
 				return nil
 			}
 		} else {
@@ -973,7 +973,7 @@ func newRun() *run {
 	if uploadDir == "" {
 		r.tmpUploadDir, err = ioutil.TempDir("", "rclonecache-tmp")
 		if err != nil {
-			log.Fatalf("Failed to create temp dir: %v", err)
+			log.Panicf("Failed to create temp dir: %v", err)
 		}
 	} else {
 		r.tmpUploadDir = uploadDir

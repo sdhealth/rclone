@@ -16,9 +16,9 @@ import (
 
 	"github.com/djherbis/times"
 	"github.com/pkg/errors"
-	"github.com/rclone/rclone/fs"
-	fscache "github.com/rclone/rclone/fs/cache"
-	"github.com/rclone/rclone/fs/config"
+	"github.com/sdhealth/rclone/fs"
+	fscache "github.com/sdhealth/rclone/fs/cache"
+	"github.com/sdhealth/rclone/fs/config"
 )
 
 // CacheMode controls the functionality of the cache

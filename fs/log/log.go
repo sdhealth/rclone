@@ -9,8 +9,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/rclone/rclone/fs"
-	"github.com/rclone/rclone/fs/config/flags"
+	"github.com/sdhealth/rclone/fs"
+	"github.com/sdhealth/rclone/fs/config/flags"
 )
 
 // Flags
@@ -93,7 +93,7 @@ func InitLogging() {
 	if *logFile != "" {
 		f, err := os.OpenFile(*logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0640)
 		if err != nil {
-			log.Fatalf("Failed to open log file: %v", err)
+			log.Panicf("Failed to open log file: %v", err)
 		}
 		_, err = f.Seek(0, io.SeekEnd)
 		if err != nil {
@@ -106,7 +106,7 @@ func InitLogging() {
 	// Syslog output
 	if *useSyslog {
 		if *logFile != "" {
-			log.Fatalf("Can't use --syslog and --log-file together")
+			log.Panicf("Can't use --syslog and --log-file together")
 		}
 		startSysLog()
 	}
