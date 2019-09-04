@@ -3,8 +3,10 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/rclone/rclone/fs"
@@ -157,9 +159,10 @@ func runRoot(cmd *cobra.Command, args []string) {
 // Helpful example: http://rtfcode.com/xref/moby-17.03.2-ce/cli/cobra.go
 func setupRootCommand(rootCmd *cobra.Command) {
 	// Add global flags
-	configflags.AddFlags(pflag.CommandLine)
-	filterflags.AddFlags(pflag.CommandLine)
-	rcflags.AddFlags(pflag.CommandLine)
+	flagSet := pflag.NewFlagSet(strconv.Itoa(rand.Int()), pflag.PanicOnError)
+	configflags.AddFlags(flagSet)
+	filterflags.AddFlags(flagSet)
+	rcflags.AddFlags(flagSet)
 
 	Root.Run = runRoot
 	Root.Flags().BoolVarP(&version, "version", "V", false, "Print the version number")
