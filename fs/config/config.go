@@ -1345,8 +1345,8 @@ func determinePathFromSection(section string) (sectionName string, path string) 
 // FileGetFlag gets the config key under section returning the
 // the value and true if found and or ("", false) otherwise
 func FileGetFlag(section, key string) (string, bool) {
-	sectionName, path := determinePathFromSection(section)
-	newValue, err := getUserConfigData(path, false).GetValue(sectionName, key)
+	_, path := determinePathFromSection(section)
+	newValue, err := getUserConfigData(path, false).GetValue(section, key)
 	return newValue, err == nil
 }
 
@@ -1360,8 +1360,8 @@ func FileGet(section, key string, defaultVal ...string) string {
 	if found {
 		defaultVal = []string{newValue}
 	}
-	sectionName, path := determinePathFromSection(section)
-	return getUserConfigData(path, false).MustValue(sectionName, key, defaultVal...)
+	_, path := determinePathFromSection(section)
+	return getUserConfigData(path, false).MustValue(section, key, defaultVal...)
 }
 
 // FileSet sets the key in section to value.  It doesn't save
