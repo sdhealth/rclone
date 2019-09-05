@@ -230,7 +230,7 @@ func LoadConfig() {
 	fshttp.StartHTTPTokenBucket()
 }
 
-var UserConfigMap map[string]*goconfig.ConfigFile
+var UserConfigMap = make(map[string]*goconfig.ConfigFile)
 
 func LoadUserConfig(path string, reload bool) (*goconfig.ConfigFile, error) {
 	var file *goconfig.ConfigFile
