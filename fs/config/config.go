@@ -20,7 +20,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 	"unicode/utf8"
 
@@ -235,19 +234,13 @@ var UserConfigMap = make(map[string]*goconfig.ConfigFile)
 func LoadUserConfig(path string, reload bool) (*goconfig.ConfigFile, error) {
 	var file *goconfig.ConfigFile
 	var err error
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go func() {
-		if UserConfigMap[path] != nil && !reload {
-			file = UserConfigMap[path]
-			err = nil
-		} else {
-			file, err = loadConfigFile(path)
-			UserConfigMap[path] = file
-		}
-		wg.Done()
-	}()
-	wg.Wait()
+	if UserConfigMap[path] != nil && !reload {
+		file = UserConfigMap[path]
+		err = nil
+	} else {
+		file, err = loadConfigFile(path)
+		UserConfigMap[path] = file
+	}
 	return file, err
 }
 
