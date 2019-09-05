@@ -220,7 +220,7 @@ func TestConfigLoad(t *testing.T) {
 		ConfigPath = oldConfigPath
 	}()
 	configKey = nil // reset password
-	c, err := loadConfigFile()
+	c, err := loadConfigFile("")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -245,7 +245,7 @@ func TestConfigLoadEncrypted(t *testing.T) {
 	// Set correct password
 	err = setConfigPassword("asdf")
 	require.NoError(t, err)
-	c, err := loadConfigFile()
+	c, err := loadConfigFile("")
 	require.NoError(t, err)
 	sections := c.GetSectionList()
 	var expect = []string{"nounc", "unc"}
@@ -263,22 +263,22 @@ func TestConfigLoadEncryptedFailures(t *testing.T) {
 	oldConfigPath := ConfigPath
 	ConfigPath = "./testdata/enc-short.conf"
 	defer func() { ConfigPath = oldConfigPath }()
-	_, err = loadConfigFile()
+	_, err = loadConfigFile("")
 	require.Error(t, err)
 
 	// This file contains invalid base64 characters.
 	ConfigPath = "./testdata/enc-invalid.conf"
-	_, err = loadConfigFile()
+	_, err = loadConfigFile("")
 	require.Error(t, err)
 
 	// This file contains invalid base64 characters.
 	ConfigPath = "./testdata/enc-too-new.conf"
-	_, err = loadConfigFile()
+	_, err = loadConfigFile("")
 	require.Error(t, err)
 
 	// This file does not exist.
 	ConfigPath = "./testdata/filenotfound.conf"
-	c, err := loadConfigFile()
+	c, err := loadConfigFile("")
 	assert.Equal(t, errorConfigFileNotFound, err)
 	assert.Nil(t, c)
 }

@@ -20,11 +20,12 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
 	"github.com/Unknwon/goconfig"
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/mitchellh/go-homedir"
 	"github.com/pkg/errors"
 	"github.com/rclone/rclone/fs"
 	"github.com/rclone/rclone/fs/accounting"
@@ -105,6 +106,11 @@ func getConfigData() *goconfig.ConfigFile {
 		LoadConfig()
 	}
 	return configFile
+}
+
+func getUserConfigData(path string, reload bool) *goconfig.ConfigFile {
+	file, _ := LoadUserConfig(path, reload)
+	return file
 }
 
 // Return the path to the configuration file
@@ -204,7 +210,7 @@ func makeConfigPath() string {
 func LoadConfig() {
 	// Load configuration file.
 	var err error
-	configFile, err = loadConfigFile()
+	configFile, err = loadConfigFile("")
 	if err == errorConfigFileNotFound {
 		fs.Logf(nil, "Config file %q not found - using defaults", ConfigPath)
 		configFile, _ = goconfig.LoadFromReader(&bytes.Buffer{})
@@ -224,11 +230,32 @@ func LoadConfig() {
 	fshttp.StartHTTPTokenBucket()
 }
 
+var UserConfigMap map[string]*goconfig.ConfigFile
+
+func LoadUserConfig(path string, reload bool) (*goconfig.ConfigFile, error) {
+	var file *goconfig.ConfigFile
+	var err error
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		if UserConfigMap[path] != nil && !reload {
+			file = UserConfigMap[path]
+			err = nil
+		} else {
+			file, err = loadConfigFile(path)
+			UserConfigMap[path] = file
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+	return file, err
+}
+
 var errorConfigFileNotFound = errors.New("config file not found")
 
 // loadConfigFile will load a config file, and
 // automatically decrypt it.
-func loadConfigFile() (*goconfig.ConfigFile, error) {
+func loadConfigFile(path string) (*goconfig.ConfigFile, error) {
 	envpw := os.Getenv("RCLONE_CONFIG_PASS")
 	if len(configKey) == 0 && envpw != "" {
 		err := setConfigPassword(envpw)
@@ -238,8 +265,13 @@ func loadConfigFile() (*goconfig.ConfigFile, error) {
 			fs.Debugf(nil, "Using RCLONE_CONFIG_PASS password.")
 		}
 	}
-
-	b, err := ioutil.ReadFile(ConfigPath)
+	var b []byte
+	var err error
+	if path != "" {
+		b, err = ioutil.ReadFile(path)
+	} else {
+		b, err = ioutil.ReadFile(ConfigPath)
+	}
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, errorConfigFileNotFound
@@ -561,7 +593,7 @@ func SetValueAndSave(name, key, value string) (err error) {
 	// Set the value in config in case we fail to reload it
 	getConfigData().SetValue(name, key, value)
 	// Reload the config file
-	reloadedConfigFile, err := loadConfigFile()
+	reloadedConfigFile, err := loadConfigFile("")
 	if err == errorConfigFileNotFound {
 		// Config file not written yet so ignore reload
 		return nil
@@ -586,7 +618,7 @@ func SetValueAndSave(name, key, value string) (err error) {
 // an error if the config file was not found or that value couldn't be
 // read.
 func FileGetFresh(section, key string) (value string, err error) {
-	reloadedConfigFile, err := loadConfigFile()
+	reloadedConfigFile, err := loadConfigFile("")
 	if err != nil {
 		return "", err
 	}
@@ -1301,10 +1333,27 @@ func Authorize(args []string) {
 	f.Config(name, m)
 }
 
+func determinePathFromSection(section string) (sectionName string, path string) {
+	configPath := os.Getenv("RCLONE_CONF_USERPATH")
+	if configPath == "" {
+		panic("RCLONE_CONF_USERPATH is empty")
+	}
+	sArr := strings.Split(section, "~")
+	if len(sArr) == 2 {
+		sname := sArr[0]
+		userId := sArr[1]
+		fullyFormedPath := fmt.Sprintf("%s/%s.conf", configPath, userId)
+		return sname, fullyFormedPath
+	} else {
+		panic("section name doesn't have userid")
+	}
+}
+
 // FileGetFlag gets the config key under section returning the
 // the value and true if found and or ("", false) otherwise
 func FileGetFlag(section, key string) (string, bool) {
-	newValue, err := getConfigData().GetValue(section, key)
+	sectionName, path := determinePathFromSection(section)
+	newValue, err := getUserConfigData(path, false).GetValue(sectionName, key)
 	return newValue, err == nil
 }
 
@@ -1318,7 +1367,8 @@ func FileGet(section, key string, defaultVal ...string) string {
 	if found {
 		defaultVal = []string{newValue}
 	}
-	return getConfigData().MustValue(section, key, defaultVal...)
+	sectionName, path := determinePathFromSection(section)
+	return getUserConfigData(path, false).MustValue(sectionName, key, defaultVal...)
 }
 
 // FileSet sets the key in section to value.  It doesn't save
@@ -1342,7 +1392,7 @@ var matchEnv = regexp.MustCompile(`^RCLONE_CONFIG_(.*?)_TYPE=.*$`)
 
 // FileRefresh ensures the latest configFile is loaded from disk
 func FileRefresh() error {
-	reloadedConfigFile, err := loadConfigFile()
+	reloadedConfigFile, err := loadConfigFile("")
 	if err != nil {
 		return err
 	}
