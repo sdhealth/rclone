@@ -957,6 +957,28 @@ func ListLong(ctx context.Context, f fs.Fs, w io.Writer) error {
 	})
 }
 
+// ListLong lists the Fs to the supplied writer
+//
+// Shows size, mod time and path - obeys includes and excludes
+//
+// Lists in parallel which may get them out of order
+func ListCSV(ctx context.Context, f fs.Fs, w io.Writer, delimiter string) error {
+	return ListFn(ctx, f, func(o fs.Object) {
+		tr := accounting.Stats(ctx).NewCheckingTransfer(o)
+		defer func() {
+			tr.Done(nil)
+		}()
+		modTime := o.ModTime(ctx)
+		syncFprintf(w, "%9d%s%s%s%s\n",
+			o.Size(),
+			delimiter,
+			modTime.Local().Format("2006-01-02 15:04:05.000000000"),
+			delimiter,
+			o.Remote(),
+		)
+	})
+}
+
 // Md5sum list the Fs to the supplied writer
 //
 // Produces the same output as the md5sum command - obeys includes and
