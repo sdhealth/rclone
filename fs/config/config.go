@@ -1331,7 +1331,7 @@ func determinePathFromSection(section string) (sectionName string, path string) 
 	if configPath == "" {
 		panic("RCLONE_CONF_USERPATH is empty")
 	}
-	sArr := strings.Split(section, "-")
+	sArr := strings.Split(section, "~")
 	if len(sArr) == 2 {
 		sname := sArr[0]
 		userId := sArr[1]
