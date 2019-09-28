@@ -60,13 +60,13 @@ type Func func(path string, entries fs.DirEntries, err error) error
 // NB (f, path) to be replaced by fs.Dir at some point
 func Walk(ctx context.Context, f fs.Fs, path string, includeAll bool, maxLevel int, fn Func) error {
 	if fs.Config.NoTraverse && filter.Active.HaveFilesFrom() {
-		return walkR(ctx, f, path, includeAll, maxLevel, fn, filter.Active.MakeListR(ctx, f.NewObject))
+		return walkR(ctx, f, path, true, maxLevel, fn, filter.Active.MakeListR(ctx, f.NewObject))
 	}
 	// FIXME should this just be maxLevel < 0 - why the maxLevel > 1
 	if (maxLevel < 0 || maxLevel > 1) && fs.Config.UseListR && f.Features().ListR != nil {
-		return walkListR(ctx, f, path, includeAll, maxLevel, fn)
+		return walkListR(ctx, f, path, true, maxLevel, fn)
 	}
-	return walkListDirSorted(ctx, f, path, includeAll, maxLevel, fn)
+	return walkListDirSorted(ctx, f, path, true, maxLevel, fn)
 }
 
 // ListType is uses to choose which combination of files or directories is requires
