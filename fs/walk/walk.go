@@ -446,6 +446,7 @@ func walk(ctx context.Context, f fs.Fs, path string, includeAll bool, maxLevel i
 }
 
 func walkRDirTree(ctx context.Context, f fs.Fs, startPath string, includeAll bool, maxLevel int, listR fs.ListRFn) (dirtree.DirTree, error) {
+	includeAll = true
 	dirs := dirtree.New()
 	// Entries can come in arbitrary order. We use toPrune to keep
 	// all directories to exclude later.
